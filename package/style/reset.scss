@@ -1,0 +1,95 @@
+/* v20200318
+   public css
+*/
+html,body{ width:100%; height: 100%;overflow:hidden }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{
+	color: #333;
+	text-decoration:none;
+	outline: 0;
+	box-sizing: border-box;
+	transition: all .2s;
+}
+
+/*滚动条 start*/
+::-webkit-scrollbar {
+	width: 10px;
+	height:10px;
+	background-color: #fff;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background: #fff ;
+}
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+	background-color:#eee;
+}
+::-webkit-scrollbar-thumb:hover {
+	border-radius: 3px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+	background-color:#ccc;
+}  
+
+/* 修改element ui默认样式 */
+.el-main{padding:10px;}
+/* el弹出框变化增加过渡效果 */
+.el-dialog{margin:0 auto; transition:all .1s}
+.el-dialog__body{ padding:10px 20px !important; }
+.el-dialog__header { background: #f2f2f2; border-bottom: 1px solid #ddd}
+
+/* 当el-form的label 位置居上的时候 缩小label与input的间距 */
+.el-form--label-top .el-form-item__label{ padding:0 !important}
+/* 取消el-scrollbar属性 水平位置的滚动条 */
+.el-scrollbar__wrap{ overflow-x:hidden !important}
+
+/* 当el-input-number没有控制器或者控制器居右的时候文字居左对齐 */
+.el-input-number.is-without-controls .el-input__inner,
+.el-input-number.is-controls-right .el-input__inner{text-align: left !important}
+

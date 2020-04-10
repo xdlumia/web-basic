@@ -1,0 +1,44 @@
+{
+  "name": "e-web-basic",
+  "version": "0.1.1",
+  "author": "web.王晓冬",
+  "description": "e-web-basic",
+  "main": "package/index.js",
+  "keyword": "vue basic",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "b": "vue-cli-service build --target lib --name e-web-basic --dest lib packages/index.js",
+    "pub": "node shell"
+  },
+  "files": [
+    "package"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "core-js": "^3.6.4",
+    "moment": "^2.24.0",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "element-ui": "^2.13.0",
+    "vue-router": "^3.1.6",
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "node-sass": "^4.12.0",
+    "readline-sync": "1.4.9",
+    "sass-loader": "^8.0.2",
+    "shelljs": "^0.8.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "publishConfig": {
+    "registry": "http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
