@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-25 18:12:38
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-07 11:07:53
+ * @LastEditTime: 2020-04-10 13:52:38
  * @Description: file content
  */
 <template>
@@ -39,7 +39,7 @@ export default {
   watch: {
     $route: {
       handler(val) {
-        if (val.meta.title) {
+        if (!val.meta.title) {
           console.log("当前路由的meta里未定义title属性");
         } else {
           this.title = val.meta.title;

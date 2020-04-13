@@ -7,7 +7,7 @@
 * @author web-王晓冬
 * @date 2018年9月10日
 * @param api {String}                  ---api接口 微服务名称.url方法名称  必填
-* @param params {Object}               ---接口参数;  默认{ page: 1, limit: 15 }
+* @param params {Object}               ---接口参数;  默认{ page: 1, size: 15 }
 * @param size {String}                 ---表格size 
 * @param autoInit {String}                 ---表格size 
 * @param page {Boole}                ---是否显示分页   默认true
@@ -189,8 +189,8 @@ export default {
           this.$emit("response", res || {});
           // 如果有分页
           if (this.page) {
-            this.tableCount = res.total || 0;
-            this.params.pageNum = res.pageNum || 0;
+            this.tableCount = res.data.total || 0;
+            this.params.pageNum = res.data.pageNum || 0;
           }
         })
         .finally(() => {
