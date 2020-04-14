@@ -47,7 +47,7 @@
       v-if="page"
       @size-change="init(params)"
       @current-change="init(params)"
-      :current-page.sync="params.pageNum"
+      :current-page.sync="params.page"
       :page-size.sync="params.size"
       :page-sizes="[10, 15, 20, 30, 50]"
       layout="total, sizes, prev, pager, next, jumper"
@@ -68,7 +68,7 @@ export default {
     params: {
       type: [Object, String, Number],
       default: function() {
-        return { pageNum: 1, size: 15 };
+        return { page: 1, size: 15 };
       }
     },
     // 尺寸
@@ -180,7 +180,6 @@ export default {
           } else if (apis.length == 2 && index == 1 && !data[path]) {
             console.error(`[${apis[0]}]服务里没有[${path}]这个接口方法`);
           }
-          this.loading = false;
           return data[path];
         }, this.$api)(params)
         .then(res => {
@@ -190,7 +189,7 @@ export default {
           // 如果有分页
           if (this.page) {
             this.tableCount = res.data.total || 0;
-            this.params.pageNum = res.data.pageNum || 0;
+            this.params.page = res.data.page || 0;
           }
         })
         .finally(() => {
@@ -200,10 +199,10 @@ export default {
         });
     },
     // 重新请求
-    reload(pageNum) {
+    reload(page) {
       // 如果有分页
-      if (this.page && pageNum) {
-        this.params.pageNum = pageNum;
+      if (this.page && page) {
+        this.params.page = page;
       }
       // api动态加载完 开始重新请求数据
       this.$nextTick(() => {
@@ -226,8 +225,8 @@ export default {
       this.$emit("sort-change", column, prop, order);
     },
     // 表格翻页
-    // pageChange(pageNum) {
-    //   this.params.pageNum = pageNum;
+    // pageChange(page) {
+    //   this.params.page = page;
     //   this.init(this.params);
     // },
     // 清空多选

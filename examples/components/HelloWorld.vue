@@ -2,14 +2,14 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-02 11:15:36
+ * @LastEditTime: 2020-04-14 14:49:01
  * @Description: file content
  */
 <template>
   <div class="hello">
     <e-breadcrumb />
     <e-search />
-    <e-table api="logList" />
+    <!-- <e-table api="logList" /> -->
     <el-dialog v-dialogDrag title="afsda" :visible="visible"></el-dialog>
     <h1>{{ options | timeToStr }}</h1>
     <el-button v-auth="'crm'">我這裏測ui</el-button>
@@ -42,13 +42,11 @@ export default {
     };
   },
   created() {
-    axios
-      .get(
-        "http://git.kinfe.net/api/v4/projects/1/repository/files/ylhistory.html?private_token=Wz6K47F6HKPp1RUYTKxd&ref=master"
-      )
-      .then(function(res) {
-        let data = res.content;
-      });
+    // axios.get(
+    //   "http://git.kinfe.net/api/v4/projects/21/repository/commits?per_page=100&page=1&private_token=Wz6K47F6HKPp1RUYTKxd&ref=dev",
+    //   { wang: 123 }
+    // );
+    this.$api.commit();
   }
 };
 </script>

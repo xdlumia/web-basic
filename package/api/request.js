@@ -2,24 +2,25 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-24 16:45:27
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-13 18:12:38
+ * @LastEditTime: 2020-04-14 14:58:54
  * @Description: request
  */
 import axios from 'axios'
+
+
 import {
   Message
 } from 'element-ui'
 import QS from 'querystring'
-axios.defaults.withCredentials = true;
 // GET 请求 params 序列化
 axios.defaults.paramsSerializer = function (params) {
   return QS.stringify(params)
 }
+
 // 拦截器
 axios.interceptors.request.use(config => {
-  config.headers.finger = window.localStorage.getItem('finger') || '';
-  config.headers.token = window.localStorage.getItem('token') || '';
-
+  // config.headers.finger = window.localStorage.getItem('finger') || '';
+  // config.headers.token = window.localStorage.getItem('token') || '';
   return config;
 }, error => {
   Promise.reject(error)
@@ -42,7 +43,7 @@ axios.interceptors.response.use(response => {
     })
     return Promise.reject(res.msg);
   }
-
+  // code==0 数据正常
   if (res.code != 0) {
     Message.error({
       message: res.msg,
@@ -53,9 +54,8 @@ axios.interceptors.response.use(response => {
     return Promise.reject(res.msg);
   }
 
-  // showMessage 写法兼容以前
-  let showMsg = response.config.showMessage !== undefined ? response.config.showMessage :
-    response.config.showMsg
+  // showMsg 写法兼容以前
+  let showMsg = response.config.showMsg
 
   if (res.code == 0 && (showMsg !== undefined ? showMsg : response.config.method !== 'get')) {
     let msg = response.config.msg || res.msg
