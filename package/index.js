@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-17 17:49:21
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-02 11:47:40
+ * @LastEditTime: 2020-04-15 16:43:46
  * @Description: file content
  */
 import Vue from 'vue';
@@ -13,6 +13,7 @@ import './utils/element-extend';
 import filters from './utils/filters.js';
 import directives from './utils/directives.js';
 import utils from './utils/utils';
+import local from './utils/localStrong';
 import api from './api';
 // mixin内容
 import authCodes from './mixins/authCodes';
@@ -26,8 +27,12 @@ const eWebBasic = {
     components.map(item => Vue.component(item.name, item))
     Vue.prototype.$util = utils;
     Vue.prototype.$api = api;
+    Vue.prototype.$local = local;
     Vue.mixin(authCodes);
   },
 };
 
-export { eWebBasic, api };
+export {
+  eWebBasic,
+  api
+};
