@@ -44,6 +44,7 @@
       <slot></slot>
     </el-table>
     <el-pagination
+      class="ar"
       v-if="page"
       @size-change="init(params)"
       @current-change="init(params)"
@@ -189,7 +190,7 @@ export default {
           // 如果有分页
           if (this.page) {
             this.tableCount = res.data.total || 0;
-            this.params.page = res.data.page || 0;
+            this.params.page = res.data.page || res.data.pageNum;
           }
         })
         .finally(() => {

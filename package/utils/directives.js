@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2019-08-01 11:54:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-02 11:41:49
+ * @LastEditTime: 2020-04-15 17:04:19
  * @Description: 自定义指令 directive
  * @axample: 
  //弹出框添加拖拽
@@ -145,7 +145,8 @@ export default {
           e.preventDefault(); // 移动时禁用默认事件
 
           // 通过事件委托，计算移动的距离 
-          var x = e.clientX - disX + (e.clientX - clientX); //这里 由于elementUI的dialog控制居中的，所以水平拉伸效果是双倍
+          var x = e.clientX - disX + (e.clientX -
+            clientX); //这里 由于elementUI的dialog控制居中的，所以水平拉伸效果是双倍
           var y = e.clientY - disY;
           //比较是否小于最小宽高
           dragDom.style.width = x > minWidth ? x + 'px' : minWidth + 'px';
@@ -158,7 +159,7 @@ export default {
         };
       };
     }
-  },//end
+  }, //end
   // click 时间防抖 一般用于 表单提交 {Number=1000} 毫秒#
   debounce: {
     inserted(el, binding) {
@@ -173,17 +174,15 @@ export default {
         }
       })
     }
-  },//end
+  }, //end
 
   // auth 权限码 {String} v-auth="'crm1'"#
   auth: {
     inserted(el, binding, vnode) {
       let authCodes = vnode.context.authCodes
       let code = binding.value
-      if (authCodes.includes(code)) {
-        el.style.display = 'block'
-      } else {
-        el.style.display = 'none'
+      if (!authCodes.includes(code)) {
+        el.remove()
       }
     }
   }
