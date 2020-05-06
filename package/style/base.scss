@@ -13,390 +13,69 @@ body {
   font-weight: normal;
 }
 
-.f12 {
-  font-size: 12px;
+// font-size:12px - 50px
+@for $i from 12 through 50 {
+  .f#{$i} {
+    font-size: $i+px;
+  }
 }
 
-.f13 {
-  font-size: 13px;
-}
-
-.f14 {
-  font-size: 14px;
-}
-
-.f15 {
-  font-size: 15px;
-}
-
-.f16 {
-  font-size: 16px;
-}
-
-.f18 {
-  font-size: 18px;
-}
-
-.f20 {
-  font-size: 20px;
-}
-
-.f22 {
-  font-size: 22px;
-}
-
-.f24 {
-  font-size: 24px;
-}
-
-.f26 {
-  font-size: 26px;
-}
-
-.f28 {
-  font-size: 28px;
-}
-
-.f30 {
-  font-size: 30px;
-}
-
-.f35 {
-  font-size: 35px;
-}
 
 /*边距*/
-.m0 {
-  margin: 0;
+// margin:0px - 50px 
+@for $i from 0 through 10 {
+
+  // margin:0px - 50px 
+  .m#{$i*5} {
+    margin: $i*5px;
+  }
+
+  // margin-top:0px - 50px 
+  .mt#{$i*5} {
+    margin-top: $i*5px;
+  }
+
+  // margin-bottom:0px - 50px 
+  .mb#{$i*5} {
+    margin-bottom: $i*5px;
+  }
+
+  // margin-left:0px - 50px 
+  .ml#{$i*5} {
+    margin-left: $i*5px;
+  }
+
+  // margin-right:0px - 50px 
+  .mr#{$i*5} {
+    margin-right: $i*5px;
+  }
+
+  // padding:0px - 50px 
+  .p#{$i*5} {
+    padding: $i*5px;
+  }
+
+  // padding-top:0px - 50px 
+  .pt#{$i*5} {
+    padding-top: $i*5px;
+  }
+
+  // padding-bottom:0px - 50px 
+  .pb#{$i*5} {
+    padding-bottom: $i*5px;
+  }
+
+  // padding-left:0px - 50px 
+  .pl#{$i*5} {
+    padding-left: $i*5px;
+  }
+
+  // padding-right:0px - 50px 
+  .pr#{$i*5} {
+    padding-right: $i*5px;
+  }
 }
 
-.m5 {
-  margin: 5px;
-}
-
-.m10 {
-  margin: 10px;
-}
-
-.m15 {
-  margin: 15px;
-}
-
-.m20 {
-  margin: 20px;
-}
-
-.m25 {
-  margin: 25px;
-}
-
-.m30 {
-  margin: 30px;
-}
-
-.m35 {
-  margin: 35px;
-}
-
-/* 边距 margin-top */
-.mt0 {
-  margin-top: 0px;
-}
-
-.mt5 {
-  margin-top: 5px;
-}
-
-.mt10 {
-  margin-top: 10px;
-}
-
-.mt15 {
-  margin-top: 15px;
-}
-
-.mt20 {
-  margin-top: 20px;
-}
-
-.mt25 {
-  margin-top: 25px;
-}
-
-.mt30 {
-  margin-top: 30px;
-}
-
-.mt35 {
-  margin-top: 35px;
-}
-
-
-/* 边距 margin-bottom */
-.mb0 {
-  margin-bottom: 0px;
-}
-
-.mb5 {
-  margin-bottom: 5px;
-}
-
-.mb10 {
-  margin-bottom: 10px;
-}
-
-.mb15 {
-  margin-bottom: 15px;
-}
-
-.mb20 {
-  margin-bottom: 20px;
-}
-
-.mb25 {
-  margin-bottom: 25px;
-}
-
-.mb30 {
-  margin-bottom: 30px;
-}
-
-.mb35 {
-  margin-bottom: 35px;
-}
-
-/* 边距 margin-left */
-.ml0 {
-  margin-left: 0;
-}
-
-.ml5 {
-  margin-left: 5px;
-}
-
-.ml10 {
-  margin-left: 10px;
-}
-
-.ml15 {
-  margin-left: 15px;
-}
-
-.ml20 {
-  margin-left: 20px;
-}
-
-.ml30 {
-  margin-left: 30px;
-}
-
-.ml35 {
-  margin-left: 35px;
-}
-
-.ml40 {
-  margin-left: 40px;
-}
-
-.ml45 {
-  margin-left: 45px;
-}
-
-/* 边距 margin-right */
-.mr0 {
-  margin-right: 0px;
-}
-
-.mr5 {
-  margin-right: 5px;
-}
-
-.mr10 {
-  margin-right: 10px;
-}
-
-.mr15 {
-  margin-right: 15px;
-}
-
-.mr20 {
-  margin-right: 20px;
-}
-
-.mr25 {
-  margin-right: 25px;
-}
-
-.mr30 {
-  margin-right: 30px;
-}
-
-.mr35 {
-  margin-right: 35px;
-}
-
-
-
-/*内边距*/
-.p0 {
-  padding: 0px;
-}
-
-.p5 {
-  padding: 5px;
-}
-
-.p10 {
-  padding: 10px;
-}
-
-.p15 {
-  padding: 15px;
-}
-
-.p20 {
-  padding: 20px;
-}
-
-.p25 {
-  padding: 25px;
-}
-
-.p30 {
-  padding: 30px;
-}
-
-.p35 {
-  padding: 35px;
-}
-
-/* 内边距 padding-top */
-.pt0 {
-  padding-top: 0px;
-}
-
-.pt5 {
-  padding-top: 5px;
-}
-
-.pt10 {
-  padding-top: 10px;
-}
-
-.pt15 {
-  padding-top: 15px;
-}
-
-.pt20 {
-  padding-top: 20px;
-}
-
-.pt25 {
-  padding-top: 25px;
-}
-
-.pt30 {
-  padding-top: 30px;
-}
-
-.pt35 {
-  padding-top: 35px;
-}
-
-/* 内边距 padding-bottom */
-.pb0 {
-  padding-bottom: 0px;
-}
-
-.pb5 {
-  padding-bottom: 5px;
-}
-
-.pb10 {
-  padding-bottom: 10px;
-}
-
-.pb15 {
-  padding-bottom: 15px;
-}
-
-.pb20 {
-  padding-bottom: 20px;
-}
-
-.pb25 {
-  padding-bottom: 25px;
-}
-
-.pb30 {
-  padding-bottom: 30px;
-}
-
-.pb35 {
-  padding-bottom: 35px;
-}
-
-/* 内边距 padding-left */
-.pl0 {
-  padding-left: 0px;
-}
-
-.pl5 {
-  padding-left: 5px;
-}
-
-.pl10 {
-  padding-left: 10px;
-}
-
-.pl15 {
-  padding-left: 15px;
-}
-
-.pl20 {
-  padding-left: 20px;
-}
-
-.pl25 {
-  padding-left: 25px;
-}
-
-.pl30 {
-  padding-left: 30px
-}
-
-.pl35 {
-  padding-left: 35px;
-}
-
-/* 内边距 padding-right */
-.pr5 {
-  padding-right: 5px;
-}
-
-.pr10 {
-  padding-right: 10px;
-}
-
-.pr15 {
-  padding-right: 15px;
-}
-
-.pr20 {
-  padding-right: 20px
-}
-
-.pr25 {
-  padding-right: 25px;
-}
-
-.pr30 {
-  padding-right: 30px
-}
-
-.pr35 {
-  padding-right: 35px
-}
 
 // 表单高度 一般用于弹出框 el-form 上面
 .e-form-y {

@@ -34,9 +34,7 @@
     "shelljs": "^0.8.3",
     "vue-template-compiler": "^2.6.11"
   },
-  "publishConfig": {
-    "registry": "http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/"
-  },
+
   "browserslist": [
     "> 1%",
     "last 2 versions"
