@@ -1,6 +1,6 @@
 {
   "name": "e-web-basic",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "web.王晓冬",
   "description": "e-web-basic",
   "main": "package/index.js",
@@ -34,7 +34,6 @@
     "shelljs": "^0.8.3",
     "vue-template-compiler": "^2.6.11"
   },
-
   "browserslist": [
     "> 1%",
     "last 2 versions"
