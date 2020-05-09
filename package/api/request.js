@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-24 16:45:27
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-14 14:58:54
+ * @LastEditTime: 2020-05-09 16:00:30
  * @Description: request
  */
 import axios from 'axios'
@@ -19,8 +19,17 @@ axios.defaults.paramsSerializer = function (params) {
 
 // 拦截器
 axios.interceptors.request.use(config => {
-  // config.headers.finger = window.localStorage.getItem('finger') || '';
-  // config.headers.token = window.localStorage.getItem('token') || '';
+  if (window.router && window.router.currentRoute && window.router.currentRoute.query && window
+    .router.currentRoute.query.token) {
+    let tk = window.router.currentRoute.query.token;
+    localStorage.setItem('token', tk)
+    config.headers.token = tk
+  } else {
+    let token = localStorage.getItem('token') || ''
+    if (token) {
+      config.headers.token = window.localStorage.getItem('token') || '';
+    }
+  }
   return config;
 }, error => {
   Promise.reject(error)
