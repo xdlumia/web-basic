@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 15:12:54
+ * @LastEditTime: 2020-05-26 15:37:50
  * @Description: 对话记录
  * @props: avatar{Boolean}         是否显示头像  默认:true
  * @props: bubble{Boolean}         是否显示气泡  默认:true
@@ -232,33 +232,31 @@ $e-im-other: #e6a23c;
     }
     // 默认发送者的在左侧.
     // 如果发送者位置在右侧
-    @media screen and (max-width: 900px) {
-      .eim-chat-mine.right {
-        text-align: right;
-        padding-left: 0;
-        padding-right: 60px;
-        .eim-chat-user {
+    .eim-chat-mine.right {
+      text-align: right;
+      padding-left: 0;
+      padding-right: 60px;
+      .eim-chat-user {
+        left: auto;
+        right: 3px;
+        cite {
           left: auto;
-          right: 3px;
-          cite {
-            left: auto;
-            right: 60px;
-            text-align: right;
-            span {
-              float: right;
-            }
-            i {
-              padding-left: 0;
-              padding-right: 15px;
-            }
+          right: 60px;
+          text-align: right;
+          span {
+            float: right;
+          }
+          i {
+            padding-left: 0;
+            padding-right: 15px;
           }
         }
-        .eim-chat-text {
-          &::after {
-            left: auto;
-            right: -10px;
-            border-top-color: $e-im-primary;
-          }
+      }
+      .eim-chat-text {
+        &::after {
+          left: auto;
+          right: -10px;
+          border-top-color: $e-im-primary;
         }
       }
     }
