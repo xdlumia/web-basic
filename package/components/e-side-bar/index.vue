@@ -1,0 +1,171 @@
+/*
+ * @Author: web.王晓冬
+ * @Date: 2020-05-21 15:23:42
+ * @LastEditors: web.王晓冬
+ * @LastEditTime: 2020-05-26 14:41:17
+ * @Description: 侧边栏
+ * @props: height{String}          高度
+ * @props: show{Array}             显示的tab页签  默认:全部显示
+ * @props: direction{String}       触发位置  默认:right 
+*/
+
+<template>
+  <el-aside :width="!isShow?'10px':width">
+    <div class="side-bar-box" :class="`direction-${direction}`" :style="{height:height}">
+      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick" v-show="isShow">
+        <el-tab-pane
+          v-for="item of tabsFilter"
+          :key="item.comp"
+          :label="item.label"
+          :name="item.comp"
+        ></el-tab-pane>
+        <keep-alive>
+          <div class="e-auto-y" :style="{height:tabHeight}" :is="activeName" v-show="isShow"></div>
+        </keep-alive>
+      </el-tabs>
+      <div class="nav-fixed" :class="{active:!isShow}" @click="isShow=!isShow"></div>
+    </div>
+  </el-aside>
+</template>
+
+<script>
+import detailed from "./detailed";
+import leaveWord from "./leaveWord";
+import record from "../e-chat-record";
+//例如：import 《组件名称》 from '《组件路径》';
+export default {
+  name: "",
+  props: {
+    visible: { type: Boolean, required: true },
+    id: { type: String, required: true },
+    width: { type: String, required: true },
+    height: String,
+    show: Array,
+    direction: { type: String, default: "right" }
+  },
+  components: { detailed, leaveWord, record },
+  data() {
+    //这里存放数据
+    return {
+      activeName: "detailed",
+      tabs: [
+        { label: "详细信息", comp: "detailed" },
+        { label: "访客对话", comp: "record" },
+        { label: "访客留言", comp: "leaveWord" }
+      ]
+    };
+  },
+  //监听属性 类似于data概念
+  computed: {
+    isShow: {
+      get() {
+        return this.visible;
+      },
+      set(val) {
+        this.$emit("update:visible", val);
+      }
+    },
+    tabHeight() {
+      return `calc(${this.height} - 72px)`;
+    },
+    tabsFilter() {
+      return this.show
+        ? this.show.map((v, i) => {
+            let currObj = this.tabs.find(sub => sub.label == v);
+            if (i == 0) {
+              this.activeName = currObj.comp;
+            }
+            return this.tabs.find(sub => sub.label == v);
+          })
+        : this.tabs;
+    }
+  },
+  //监控data中的数据变化
+  watch: {},
+  //方法集合
+  methods: {},
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {},
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {},
+  beforeCreate() {}, //生命周期 - 创建之前
+  beforeMount() {}, //生命周期 - 挂载之前
+  beforeUpdate() {}, //生命周期 - 更新之前
+  updated() {}, //生命周期 - 更新之后
+  beforeDestroy() {}, //生命周期 - 销毁之前
+  destroyed() {}, //生命周期 - 销毁完成
+  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+};
+</script>
+<style lang='scss' scoped>
+.el-aside {
+  overflow: hidden;
+  position: relative;
+  transition: 0.2s;
+}
+.side-bar-box {
+  margin-top: 10px;
+  position: relative;
+  // padding: 3px;
+  // box-sizing: border-box;
+  // border: 1px solid #efefef;
+}
+.nav-fixed {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  transition: 0.2s;
+  color: #272a2c;
+  height: 55px;
+  color: #666;
+  line-height: 55px;
+  width: 0px;
+  border: 10px solid transparent;
+  border-left-color: #ccd2d8;
+  transform: scale(1);
+  font-size: 12px;
+  cursor: pointer;
+  &:hover {
+    color: rgb(170, 170, 170);
+  }
+
+  &::before {
+    position: absolute;
+    left: -10px;
+    top: 23px;
+    content: "";
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 2px solid #999;
+    border-left: transparent;
+    border-top: transparent;
+    transform: rotate(-45deg);
+  }
+  &.active {
+    transform: rotateY(180deg);
+    left: -10px;
+  }
+}
+.nav-fixed.left {
+  border-right-color: #ccd2d8;
+}
+.direction-left {
+  .nav-fixed {
+    left: auto;
+    right: 0;
+    border: 10px solid transparent;
+    border-right-color: #ccd2d8;
+    &::before {
+      left: auto;
+      right: -10px;
+      transform: rotate(135deg);
+    }
+    &.active {
+      left: 0px;
+    }
+  }
+}
+</style>
