@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-14 14:49:01
+ * @LastEditTime: 2020-05-26 15:10:30
  * @Description: file content
  */
 <template>
@@ -46,7 +46,6 @@ export default {
     //   "http://git.kinfe.net/api/v4/projects/21/repository/commits?per_page=100&page=1&private_token=Wz6K47F6HKPp1RUYTKxd&ref=dev",
     //   { wang: 123 }
     // );
-    this.$api.commit();
   }
 };
 </script>

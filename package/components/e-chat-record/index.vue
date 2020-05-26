@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 14:32:48
+ * @LastEditTime: 2020-05-26 15:12:54
  * @Description: 对话记录
  * @props: avatar{Boolean}         是否显示头像  默认:true
  * @props: bubble{Boolean}         是否显示气泡  默认:true
@@ -106,7 +106,7 @@ let data = [
 data.map((v, i) => (v.id = i));
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
-  name: "",
+  name: "e-chat-record",
 
   props: {
     // 是否显示头像

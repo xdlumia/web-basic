@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 14:41:17
+ * @LastEditTime: 2020-05-26 15:13:11
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -34,7 +34,7 @@ import leaveWord from "./leaveWord";
 import record from "../e-chat-record";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
-  name: "",
+  name: "e-side-bar",
   props: {
     visible: { type: Boolean, required: true },
     id: { type: String, required: true },
