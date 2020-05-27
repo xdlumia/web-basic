@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 14:28:57
+ * @LastEditTime: 2020-05-27 16:56:08
  * @Description: file content
  */
 <template>
@@ -11,8 +11,21 @@
     <e-search />
     <el-button @click="visible=true">新增</el-button>
     <!-- <e-table api="logList" /> -->
+    <el-dialog title="afsda" :visible="visible"></el-dialog>
     <el-dialog v-dialogDrag title="afsda" :visible="visible">
-      <e-form size="small" label-width="120px" v-model="form" :option="option"></e-form>
+      <e-form
+        refs="form"
+        @submit="submit"
+        size="small"
+        label-width="120px"
+        v-model="form"
+        :option="option"
+      >
+        <template v-slot:key5>
+          根据key的值自定义元素
+          <el-button>按钮</el-button>
+        </template>
+      </e-form>
     </el-dialog>
     <el-button v-auth="'crm'">我這裏測ui</el-button>
     <p>
@@ -30,9 +43,26 @@
 
 <script>
 let formItem = [
-  { label: "所有者:", prop: "key1", type: "text" },
+  {
+    label: "所有者:",
+    prop: "key1",
+    type: "text",
+    append: "132",
+    rules: { required: true },
+    change: val => {
+      console.log(val);
+    }
+  },
   { label: "创建者:", prop: "key1", type: "select" },
-  { label: "日期1:", prop: "key1", type: "daterange", span: 12 },
+  {
+    label: "日期1:",
+    prop: "key1",
+    type: "daterange",
+    span: 12,
+    change: e => {
+      console.log(11);
+    }
+  },
   { label: "日期2:", prop: "key1", type: "datetimerange", span: 12 },
   { label: "处理状态:", prop: "key1", type: "radio", options: [1, 2] },
   { label: "子站点:", prop: "key1", type: "checkbox", options: [1, 2] },
@@ -60,6 +90,11 @@ export default {
       },
       option: formItem
     };
+  },
+  methods: {
+    submit() {
+      console.log("表单提交了");
+    }
   },
   created() {
     // axios.get(

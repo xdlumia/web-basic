@@ -208,3 +208,7 @@ a {
 .el-input-number.is-controls-right .el-input__inner {
   text-align: left !important
 }
+
+.el-dialog__wrapper {
+  overflow: hidden !important;
+}
