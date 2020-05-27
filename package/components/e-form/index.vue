@@ -220,10 +220,15 @@ export default {
     },
     // 关闭表单
     closeForm() {
-      try {
-        this.$parent.$parent.visible = false;
-      } catch {
+      // 如果用户自定义取消按钮事件
+      if (this.$listeners.cancel) {
         this.$emit("cancel");
+      } else {
+        if (!this.$util.isEmptyObject(this.$parent.$parent.$listeners)) {
+          this.$parent.$parent.$listeners["update:visible"](false);
+        } else {
+          this.$parent.$listeners["update:visible"](false);
+        }
       }
     },
     // 打印
@@ -238,7 +243,7 @@ export default {
         await formRef.validate();
         this.loading = true;
         // 如果父级没有@submit 则直接提交
-        if (this.$options._parentListeners.submit) {
+        if (this.$listeners.submit) {
           this.$emit("submit", this.value, this.done);
         } else {
           this.done();

@@ -1,47 +1,27 @@
 /*
  * @Author: web.王晓冬
- * @Date: 2020-03-19 10:29:17
+ * @Date: 2020-05-27 18:25:06
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 18:50:07
+ * @LastEditTime: 2020-05-27 18:28:28
  * @Description: file content
- */
+*/
 <template>
-  <div class="hello">
-    <e-breadcrumb />
-    <e-search />
-    <el-button @click="visible=true">新增</el-button>
-    <!-- <e-table api="logList" /> -->
-    {{form}}
-    <!-- <detail :visible.sync="visible"></detail> -->
-    <el-dialog v-dialogDrag title="afsda" :visible.sync="visible">
-      <e-form
-        api="apiService"
-        refs="form"
-        @submit="submit"
-        @cancel="cancel"
-        size="small"
-        label-width="120px"
-        v-model="form"
-        :option="option"
-      >
-        <template v-slot:key5>
-          根据key的值自定义元素
-          <el-button>按钮</el-button>
-        </template>
-      </e-form>
-    </el-dialog>
-    <el-button v-auth="'crm'">我這裏測ui</el-button>
-    <p>
-      For a guide and recipes on how to configure / customize this project,
-      <br />check out the
-      <a
-        href="https://cli.vuejs.org"
-        target="_blank"
-        rel="noopener"
-      >vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-  </div>
+  <el-dialog v-dialogDrag title="afsda" :visible.sync="visible">
+    <e-form
+      api="apiService"
+      refs="form"
+      @submit="submit"
+      size="small"
+      label-width="120px"
+      v-model="form"
+      :option="option"
+    >
+      <template v-slot:key5>
+        根据key的值自定义元素
+        <el-button>按钮</el-button>
+      </template>
+    </e-form>
+  </el-dialog>
 </template>
 
 <script>
@@ -79,22 +59,20 @@ formItem = formItem.map((v, i) => {
   v.prop = `key${i}`;
   return v;
 });
-import detail from "./detail.vue";
+
 export default {
   name: "msg",
   props: {
-    msg: String
+    visible: Boolean
   },
   data() {
     return {
-      visible: true,
       form: {
         key5: [1]
       },
       option: formItem
     };
   },
-  components: { detail },
   computed: {
     isShow: {
       get() {
@@ -106,7 +84,6 @@ export default {
     }
   },
   methods: {
-    cancel() {},
     submit(form, done) {
       if (!form.key0) {
         return;
