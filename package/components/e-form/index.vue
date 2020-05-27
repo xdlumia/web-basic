@@ -137,8 +137,23 @@
     </el-form>
     <div class="ac" style="padding-top:10px; border-top:1px solid #efefef">
       <slot name="footer">
-        <el-button type="primary" @click="submitForm" v-if="!disabled" :size="size" v-debounce>保 存</el-button>
-        <el-button v-if="!disabled" :size="size">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="printForm"
+          icon="el-icon-printer"
+          v-if="!disabled"
+          :size="size"
+          v-debounce="3000"
+        >打 印</el-button>
+        <el-button
+          type="primary"
+          @click="submitForm"
+          icon="el-icon-check"
+          v-if="!disabled"
+          :size="size"
+          v-debounce
+        >保 存</el-button>
+        <el-button v-if="!disabled" @click="closeForm" :size="size">取 消</el-button>
       </slot>
     </div>
   </div>
@@ -182,8 +197,7 @@ export default {
     // 尺寸
     size: {
       type: String
-    },
-    submit: Function
+    }
   },
   data() {
     return {
@@ -204,13 +218,31 @@ export default {
         item.change(this.value[item.prop]);
       }
     },
+    // 关闭表单
+    closeForm() {
+      try {
+        this.$parent.$parent.visible = false;
+      } catch {
+        this.$emit("cancel");
+      }
+    },
+    // 打印
+    printForm() {
+      console.log("打印成功");
+    },
     // 表单提交
     async submitForm() {
       let formRef = this.$refs[this.refs];
+
       try {
         await formRef.validate();
         this.loading = true;
-        this.$emit("submit");
+        // 如果父级没有@submit 则直接提交
+        if (this.$options._parentListeners.submit) {
+          this.$emit("submit", this.value, this.done);
+        } else {
+          this.done();
+        }
       } catch (error) {
         formRef.$el
           .querySelector(".el-form-item__error")
@@ -219,6 +251,21 @@ export default {
           });
         throw error;
       }
+    },
+
+    done(form) {
+      let params = form || this.value;
+      this.loading = true;
+      this.$api
+        .projectUserUsers(params)
+        .then(res => {
+          console.log("保存成功");
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.loading = false;
+          }, 500);
+        });
     }
   }
 };

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 16:56:08
+ * @LastEditTime: 2020-05-27 17:54:09
  * @Description: file content
  */
 <template>
@@ -11,9 +11,10 @@
     <e-search />
     <el-button @click="visible=true">新增</el-button>
     <!-- <e-table api="logList" /> -->
-    <el-dialog title="afsda" :visible="visible"></el-dialog>
-    <el-dialog v-dialogDrag title="afsda" :visible="visible">
+    {{form}}
+    <el-dialog v-dialogDrag title="afsda" :visible.sync="visible">
       <e-form
+        api="apiService"
         refs="form"
         @submit="submit"
         size="small"
@@ -92,8 +93,12 @@ export default {
     };
   },
   methods: {
-    submit() {
-      console.log("表单提交了");
+    submit(form, done) {
+      if (!form.key0) {
+        return;
+      }
+      console.log("走了父级");
+      done({ a: 1 });
     }
   },
   created() {
