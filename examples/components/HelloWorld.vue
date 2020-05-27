@@ -2,16 +2,18 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 15:10:30
+ * @LastEditTime: 2020-05-27 14:28:57
  * @Description: file content
  */
 <template>
   <div class="hello">
     <e-breadcrumb />
     <e-search />
+    <el-button @click="visible=true">新增</el-button>
     <!-- <e-table api="logList" /> -->
-    <el-dialog v-dialogDrag title="afsda" :visible="visible"></el-dialog>
-    <h1>{{ options | timeToStr }}</h1>
+    <el-dialog v-dialogDrag title="afsda" :visible="visible">
+      <e-form size="small" label-width="120px" v-model="form" :option="option"></e-form>
+    </el-dialog>
     <el-button v-auth="'crm'">我這裏測ui</el-button>
     <p>
       For a guide and recipes on how to configure / customize this project,
@@ -27,8 +29,23 @@
 </template>
 
 <script>
-import axios from "axios";
-// console.log(Base64);
+let formItem = [
+  { label: "所有者:", prop: "key1", type: "text" },
+  { label: "创建者:", prop: "key1", type: "select" },
+  { label: "日期1:", prop: "key1", type: "daterange", span: 12 },
+  { label: "日期2:", prop: "key1", type: "datetimerange", span: 12 },
+  { label: "处理状态:", prop: "key1", type: "radio", options: [1, 2] },
+  { label: "子站点:", prop: "key1", type: "checkbox", options: [1, 2] },
+  { label: "日期:", prop: "key1", type: "datetime" },
+  { label: "省市:", prop: "key1", type: "cascader" },
+  { label: "省市:", prop: "key1", type: "switch" },
+  { label: "省市:", prop: "key1", type: "colorPicker" },
+  { label: "关键词:", prop: "key1", type: "textarea", span: 24 }
+];
+formItem = formItem.map((v, i) => {
+  v.prop = `key${i}`;
+  return v;
+});
 
 export default {
   name: "msg",
@@ -37,8 +54,11 @@ export default {
   },
   data() {
     return {
-      visible: false,
-      options: 1584945328
+      visible: true,
+      form: {
+        key5: [1]
+      },
+      option: formItem
     };
   },
   created() {

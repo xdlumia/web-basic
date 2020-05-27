@@ -31,11 +31,11 @@ $--border-radius-zero: 0 !default;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 @import "~element-ui/packages/theme-chalk/src/index";
 
-.el-table thead{
-  color:#666;
+.el-table thead {
+  color: #666;
   font-weight: bold;
 }
-.el-table th{
+
+.el-table th {
   background-color: #F1F5F7;
 }
-
