@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-28 10:47:03
+ * @LastEditTime: 2020-05-28 10:59:50
  * @Description: file content
  */
 <template>
@@ -25,11 +25,10 @@
       >
         <template v-slot:key5>
           根据key的值自定义元素
-          <el-button>按钮</el-button>
+          <el-input v-model="form.aaaaa"></el-input>
         </template>
         <template v-slot:insBtn>
-          根据key的值自定义元素
-          <el-button size="small">按钮</el-button>
+          <el-button size="small">插入自定义按钮或内容</el-button>
         </template>
       </e-form>
     </el-dialog>
@@ -105,8 +104,8 @@ export default {
       if (!form.key0) {
         return;
       }
+      // 对form数据重新处理
       form.aaa = 1;
-      console.log("走了父级");
       done();
     }
   },

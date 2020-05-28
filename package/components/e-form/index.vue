@@ -233,11 +233,7 @@ export default {
     this.isShowFooter = document.querySelector("#formFooter").childNodes.length;
   },
   beforeDestroy() {},
-  computed: {
-    isShowFooter() {
-      return 1;
-    }
-  },
+  computed: {},
   watch: {
     // 监控是否手动请求
   },
