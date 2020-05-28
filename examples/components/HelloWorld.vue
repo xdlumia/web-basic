@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 18:50:07
+ * @LastEditTime: 2020-05-28 10:47:03
  * @Description: file content
  */
 <template>
@@ -11,22 +11,25 @@
     <e-search />
     <el-button @click="visible=true">新增</el-button>
     <!-- <e-table api="logList" /> -->
-    {{form}}
     <!-- <detail :visible.sync="visible"></detail> -->
     <el-dialog v-dialogDrag title="afsda" :visible.sync="visible">
       <e-form
         api="apiService"
         refs="form"
         @submit="submit"
-        @cancel="cancel"
         size="small"
         label-width="120px"
         v-model="form"
         :option="option"
+        :btns="['print','cancel','submit']"
       >
         <template v-slot:key5>
           根据key的值自定义元素
           <el-button>按钮</el-button>
+        </template>
+        <template v-slot:insBtn>
+          根据key的值自定义元素
+          <el-button size="small">按钮</el-button>
         </template>
       </e-form>
     </el-dialog>
@@ -95,24 +98,16 @@ export default {
     };
   },
   components: { detail },
-  computed: {
-    isShow: {
-      get() {
-        return this.visible;
-      },
-      set(val) {
-        this.$emit("update:visible", false);
-      }
-    }
-  },
+  computed: {},
   methods: {
     cancel() {},
     submit(form, done) {
       if (!form.key0) {
         return;
       }
+      form.aaa = 1;
       console.log("走了父级");
-      done({ a: 1 });
+      done();
     }
   },
   created() {

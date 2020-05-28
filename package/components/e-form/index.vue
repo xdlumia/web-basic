@@ -26,6 +26,7 @@
       class="e-form-box"
       :size="size"
       :label-width="labelWidth"
+      :label-position="labelPosition"
     >
       <slot>
         <el-row :gutter="gutter">
@@ -135,25 +136,31 @@
         </el-row>
       </slot>
     </el-form>
-    <div class="ac" style="padding-top:10px; border-top:1px solid #efefef">
+    <div
+      v-show="isShowFooter"
+      id="formFooter"
+      class="ac"
+      style="padding-top:10px; border-top:1px solid #efefef"
+    >
       <slot name="footer">
+        <slot name="insBtn"></slot>
         <el-button
           type="primary"
           @click="printForm"
           icon="el-icon-printer"
-          v-if="!disabled"
+          v-if="!disabled && btns.includes('print')"
           :size="size"
-          v-debounce="3000"
+          v-debounce="2000"
         >打 印</el-button>
         <el-button
           type="primary"
           @click="submitForm"
           icon="el-icon-check"
-          v-if="!disabled"
+          v-if="!disabled && btns.includes('submit')"
           :size="size"
           v-debounce
         >保 存</el-button>
-        <el-button v-if="!disabled" @click="closeForm" :size="size">取 消</el-button>
+        <el-button v-if="btns.includes('cancel')" @click="closeForm" :size="size">取 消</el-button>
       </slot>
     </div>
   </div>
@@ -163,20 +170,23 @@
 export default {
   name: "e-form",
   props: {
+    // v-model对象
     value: {
       required: true,
       type: Object
     },
-    refs: {
-      required: true,
-      type: String
-    },
-    //请求接口
+    //列表配置项
     option: {
       required: true,
       type: Array,
       default: []
     },
+    // form设置ref
+    refs: {
+      required: true,
+      type: String
+    },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
@@ -186,29 +196,48 @@ export default {
       type: String,
       default: "15px"
     },
-    //参数
+    //el-form label-width
     labelWidth: {
       type: String
     },
-    gutter: {
-      type: Number,
-      default: 0
+    //el-form label-width
+    labelPosition: {
+      type: String,
+      default: "right"
     },
+
     // 尺寸
     size: {
       type: String
+    },
+    // el-row gutter 栅格间隔
+    gutter: {
+      type: Number,
+      default: 10
+    },
+    btns: {
+      type: Array,
+      default: ["submit", "cancel"]
     }
   },
   data() {
     return {
       loading: false,
+      isShowFooter: true,
       a: ""
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    // 判断footer是否有按钮
+    this.isShowFooter = document.querySelector("#formFooter").childNodes.length;
+  },
   beforeDestroy() {},
-  computed: {},
+  computed: {
+    isShowFooter() {
+      return 1;
+    }
+  },
   watch: {
     // 监控是否手动请求
   },
@@ -238,7 +267,6 @@ export default {
     // 表单提交
     async submitForm() {
       let formRef = this.$refs[this.refs];
-
       try {
         await formRef.validate();
         this.loading = true;
@@ -251,7 +279,9 @@ export default {
       } catch (error) {
         formRef.$el
           .querySelector(".el-form-item__error")
-          .parentElement.scrollIntoView(false, {
+          .parentElement.scrollIntoView({
+            block: "end",
+            inline: "nearest",
             behavior: "smooth"
           });
         throw error;
