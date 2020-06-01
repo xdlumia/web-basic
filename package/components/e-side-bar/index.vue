@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 15:13:11
+ * @LastEditTime: 2020-06-01 13:57:47
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -70,12 +70,14 @@ export default {
     },
     tabsFilter() {
       return this.show
-        ? this.show.map((v, i) => {
-            let currObj = this.tabs.find(sub => sub.label == v);
+        ? this.show.map((item, i) => {
+            item = typeof item == "string" ? { label: item } : item;
+            let currObj = this.tabs.find(sub => sub.label == item.label);
+            currObj = { ...currObj, ...item };
             if (i == 0) {
               this.activeName = currObj.comp;
             }
-            return this.tabs.find(sub => sub.label == v);
+            return currObj;
           })
         : this.tabs;
     }
