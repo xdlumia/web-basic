@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-28 10:59:50
+ * @LastEditTime: 2020-06-02 09:50:00
  * @Description: file content
  */
 <template>
@@ -109,12 +109,7 @@ export default {
       done();
     }
   },
-  created() {
-    // axios.get(
-    //   "http://git.kinfe.net/api/v4/projects/21/repository/commits?per_page=100&page=1&private_token=Wz6K47F6HKPp1RUYTKxd&ref=dev",
-    //   { wang: 123 }
-    // );
-  }
+  created() {}
 };
 </script>
 

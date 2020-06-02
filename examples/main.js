@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-01 17:40:02
+ * @LastEditTime: 2020-06-02 09:51:06
  * @Description: file content
  */
 import Vue from 'vue';
@@ -13,10 +13,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import {
   eWebBasic
 } from '../package/index';
-// import { eWebBasic } from '../lib/e-web-basic.umd';
-console.log(ElementUI.Dialog.props.top);
-
-
+// import {
+//   eWebBasic
+// } from '../lib/e-web-basic.umd';
 import './api'
 
 Vue.use(ElementUI, {
