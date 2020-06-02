@@ -2,48 +2,31 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-02 09:50:00
+ * @LastEditTime: 2020-06-02 11:30:24
  * @Description: file content
  */
 <template>
-  <div class="hello">
-    <e-breadcrumb />
-    <e-search />
-    <el-button @click="visible=true">新增</el-button>
-    <!-- <e-table api="logList" /> -->
-    <!-- <detail :visible.sync="visible"></detail> -->
-    <el-dialog v-dialogDrag title="afsda" :visible.sync="visible">
-      <e-form
-        api="apiService"
-        refs="form"
-        @submit="submit"
-        size="small"
-        label-width="120px"
-        v-model="form"
-        :option="option"
-        :btns="['print','cancel','submit']"
-      >
-        <template v-slot:key5>
-          根据key的值自定义元素
-          <el-input v-model="form.aaaaa"></el-input>
-        </template>
-        <template v-slot:insBtn>
-          <el-button size="small">插入自定义按钮或内容</el-button>
-        </template>
-      </e-form>
-    </el-dialog>
-    <el-button v-auth="'crm'">我這裏測ui</el-button>
-    <p>
-      For a guide and recipes on how to configure / customize this project,
-      <br />check out the
-      <a
-        href="https://cli.vuejs.org"
-        target="_blank"
-        rel="noopener"
-      >vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-  </div>
+  <el-container>
+    <el-main>
+      <e-breadcrumb />
+      <e-search />
+      <h1 class="ac mt50">fsfsdfsf</h1>
+      <el-button @click="visible=true">新增</el-button>
+      <!-- <e-table api="logList" /> -->
+      <!-- el-form组件测试
+      <detail :visible.sync="visible"></detail>-->
+
+      <el-button v-auth="'crm'">我這裏測ui</el-button>
+    </el-main>
+    <e-side-bar
+      id="10"
+      :avatar="false"
+      :visible.sync="visible"
+      :show="show"
+      width="460px"
+      height="calc(100vh - 128px)"
+    ></e-side-bar>
+  </el-container>
 </template>
 
 <script>
@@ -89,6 +72,11 @@ export default {
   },
   data() {
     return {
+      show: [
+        { label: "访客对话", props: { bubble: true, avatar: true } },
+        "访客留言",
+        "详细信息"
+      ],
       visible: true,
       form: {
         key5: [1]

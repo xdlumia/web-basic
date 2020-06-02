@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-01 13:57:47
+ * @LastEditTime: 2020-06-02 17:01:35
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -12,7 +12,7 @@
 <template>
   <el-aside :width="!isShow?'10px':width">
     <div class="side-bar-box" :class="`direction-${direction}`" :style="{height:height}">
-      <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick" v-show="isShow">
+      <el-tabs v-model="activeName" type="border-card" v-show="isShow" @tab-click="tabClick">
         <el-tab-pane
           v-for="item of tabsFilter"
           :key="item.comp"
@@ -20,7 +20,13 @@
           :name="item.comp"
         ></el-tab-pane>
         <keep-alive>
-          <div class="e-auto-y" :style="{height:tabHeight}" :is="activeName" v-show="isShow"></div>
+          <div
+            class="e-auto-y"
+            v-bind="activeProps"
+            :style="{height:tabHeight}"
+            :is="activeName"
+            v-show="isShow"
+          ></div>
         </keep-alive>
       </el-tabs>
       <div class="nav-fixed" :class="{active:!isShow}" @click="isShow=!isShow"></div>
@@ -38,8 +44,8 @@ export default {
   props: {
     visible: { type: Boolean, required: true },
     id: { type: String, required: true },
-    width: { type: String, required: true },
-    height: String,
+    width: { type: String, default: "460px" },
+    height: { type: String, default: "100%" },
     show: Array,
     direction: { type: String, default: "right" }
   },
@@ -48,6 +54,7 @@ export default {
     //这里存放数据
     return {
       activeName: "detailed",
+      activeProps: {},
       tabs: [
         { label: "详细信息", comp: "detailed" },
         { label: "访客对话", comp: "record" },
@@ -76,6 +83,7 @@ export default {
             currObj = { ...currObj, ...item };
             if (i == 0) {
               this.activeName = currObj.comp;
+              this.activeProps = currObj.props;
             }
             return currObj;
           })
@@ -85,7 +93,12 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    tabClick() {
+      let currObj = this.tabsFilter.find(v => v.comp == this.activeName);
+      this.activeProps = currObj.props || {};
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
