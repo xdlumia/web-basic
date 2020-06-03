@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-27 18:25:06
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 18:28:20
+ * @LastEditTime: 2020-06-03 17:45:42
  * @Description: file content
 */
 <template>
@@ -89,7 +89,8 @@ export default {
         return;
       }
       console.log("走了父级");
-      done({ a: 1 });
+      form.a = "自定义参数";
+      done(form);
     }
   },
   created() {

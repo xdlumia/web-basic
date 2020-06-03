@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-20 18:25:34
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-15 14:39:02
+ * @LastEditTime: 2020-06-03 13:51:47
  * @Description: file content
  */
 const MOCK_ADDRESS = ''
@@ -10,6 +10,13 @@ const MOCK_ADDRESS = ''
 export default {
   __mockAddress: MOCK_ADDRESS,
   /* =============人机结合API=========== */
+  // 可选客服人员
+  demoUser: {
+    'url': '/demo/user',
+    'methods': 'get',
+    'mock': false,
+    'showMsg': false
+  },
   // 可选客服人员
   projectUserUsers: {
     'url': 'ProjectUser/users',

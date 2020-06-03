@@ -147,6 +147,13 @@ a {
   transition: all .2s;
 }
 
+video,
+audio {
+  &:focus {
+    outline: 0px solid #efefef;
+  }
+}
+
 /*滚动条 start*/
 ::-webkit-scrollbar {
   width: 10px;
@@ -154,13 +161,13 @@ a {
   background-color: #fff;
 }
 
-/*定义滚动条轨道 内阴影+圆角*/
+// /*定义滚动条轨道 内阴影+圆角*/
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background: #fff;
 }
 
-/*定义滑块 内阴影+圆角*/
+// /*定义滑块 内阴影+圆角*/
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
@@ -209,6 +216,7 @@ a {
   text-align: left !important
 }
 
+// 禁止弹出框外框滚动
 .el-dialog__wrapper {
   overflow: hidden !important;
 }

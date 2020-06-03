@@ -2,7 +2,7 @@
  * @Author: web.闫超
  * @Date: 2018-09-14 18:34:55
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-27 16:52:51
+ * @LastEditTime: 2020-06-03 18:02:29
  * @Description: elementUI扩展入口
  */
 import {
@@ -15,6 +15,10 @@ import {
  * 默认设置 el-input textarea 类型下的最大长度是300 text类型最大长度是32
  * maxlength是通过attrs传递给实际的Input,暂时找不到任何合适的地方去修改attrs，因此只能覆盖下render方法，在render之前修改下
  */
+import Schema from 'async-validator';
+// 修改form必填项验证的默认提示
+Schema.messages.required = () => '此处是必填项'
+
 Input.render = (function (old, defaultMaxLength) {
   return function () {
     if (this.$attrs.placeholder === undefined) {

@@ -2,55 +2,64 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 16:47:38
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-21 16:47:49
+ * @LastEditTime: 2020-06-03 17:18:19
  * @Description: 留言
 */
 
 
 <template>
-  <div class="detailde-warp">留言</div>
+  <div class="detailde-warp">
+    <e-form
+      :span="24"
+      api="apiService"
+      refs="form"
+      size="small"
+      label-width="120px"
+      v-model="form"
+      :option="option"
+    >
+      <template v-slot:key5>
+        根据key的值自定义元素
+        <el-button>按钮</el-button>
+      </template>
+    </e-form>
+  </div>
 </template>
 
 <script>
 let formList = [
   {
-    title: "名片所属:",
-    children: [
-      { label: "客服名称:", prop: "name" },
-      { label: "创建日期:", prop: "name" }
-    ]
+    label: "所有者:",
+    prop: "key1",
+    type: "text",
+    append: "132",
+    rules: { required: true },
+    change: val => {
+      console.log(val);
+    }
   },
+  { label: "创建者:", prop: "key1", type: "select" },
   {
-    title: "访客信息:",
-    children: [
-      { label: "访客来源:", type: "textarea", prop: "name" },
-      { label: "对话页:", type: "textarea", prop: "name" },
-      { label: "最初访问页:", type: "textarea", prop: "name" },
-      { label: "关键词:", type: "textarea", prop: "name" }
-    ]
+    label: "日期1:",
+    prop: "key1",
+    type: "daterange",
+    change: e => {
+      console.log(11);
+    }
   },
-  {
-    title: "名片信息:",
-    children: [
-      { label: "名片标签:", type: "text", prop: "name" },
-      { label: "项目:", type: "text", prop: "name" },
-      { label: "性别:", type: "text", prop: "name" },
-      { label: "手机:", type: "text", prop: "name" },
-      { label: "电话:", type: "text", prop: "name" },
-      { label: "客户分类:", type: "text", prop: "name" },
-      { label: "公司:", type: "text", prop: "name" },
-      { label: "网址:", type: "text", prop: "name" },
-      { label: "回电时间:", type: "text", prop: "name" },
-      { label: "微信:", type: "text", prop: "name" },
-      { label: "地区:", type: "text", prop: "name" },
-      { label: "QQ:", type: "text", prop: "name" },
-      { label: "邮箱:", type: "text", prop: "name" },
-      { label: "备注:", type: "text", prop: "name" },
-      { label: "推广渠道:", type: "text", prop: "name" },
-      { label: "自定义字段:", type: "text", prop: "name" }
-    ]
-  }
+  { label: "日期2:", prop: "key1", type: "datetimerange" },
+  { label: "处理状态:", prop: "key1", type: "radio", options: [1, 2] },
+  { label: "子站点:", prop: "key1", type: "checkbox", options: [1, 2] },
+  { label: "日期:", prop: "key1", type: "datetime" },
+  { label: "省市:", prop: "key1", type: "cascader" },
+  { label: "省市:", prop: "key1", type: "switch" },
+  { label: "省市:", prop: "key1", type: "colorPicker" },
+  { label: "关键词:", prop: "key1", type: "textarea", span: 24 }
 ];
+formList = formList.map((v, i) => {
+  v.prop = `key${i}`;
+  return v;
+});
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "",
@@ -63,7 +72,7 @@ export default {
     //这里存放数据
     return {
       form: {},
-      formList: formList
+      option: formList
     };
   },
   //监听属性 类似于data概念

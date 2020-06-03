@@ -18,22 +18,24 @@
 **/
 
 <template>
-  <div v-loading="loading">
+  <div v-loading="loading" style="height:100%">
     <el-form
       :ref="refs"
       :disabled="disabled"
       :model="value"
+      :style="formMinHeight"
       class="e-form-box"
       :size="size"
       :label-width="labelWidth"
       :label-position="labelPosition"
     >
       <slot>
-        <el-row :gutter="gutter">
+        <e-form-item v-bind="$props"></e-form-item>
+        <!-- <el-row :gutter="gutter">
           <el-col
-            :style="`margin-bottom:${lineSpacing}`"
+            :style="`margin-bottom:${lineSpace}`"
             class="mb15"
-            :span="item.span || 12"
+            :span="item.span || span"
             v-for="item of option"
             :key="item.prop"
           >
@@ -133,7 +135,7 @@
               </slot>
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row>-->
       </slot>
     </el-form>
     <div
@@ -179,12 +181,16 @@ export default {
     option: {
       required: true,
       type: Array,
-      default: []
+      default: () => []
     },
     // form设置ref
     refs: {
       required: true,
       type: String
+    },
+    span: {
+      type: Number,
+      default: 12
     },
     // 是否禁用
     disabled: {
@@ -192,7 +198,7 @@ export default {
       default: false
     },
     // 行间距
-    lineSpacing: {
+    lineSpace: {
       type: String,
       default: "15px"
     },
@@ -217,14 +223,13 @@ export default {
     },
     btns: {
       type: Array,
-      default: ["submit", "cancel"]
+      default: () => ["submit", "cancel"]
     }
   },
   data() {
     return {
       loading: false,
-      isShowFooter: true,
-      a: ""
+      isShowFooter: true
     };
   },
   created() {},
@@ -233,7 +238,14 @@ export default {
     this.isShowFooter = document.querySelector("#formFooter").childNodes.length;
   },
   beforeDestroy() {},
-  computed: {},
+  computed: {
+    formMinHeight() {
+      // 如果是弹出框表格高度 max-height: calc(100vh - 140px) 如果是其余位置height: calc(100% - 35px)
+      return this.$parent.$options._componentTag == "el-dialog"
+        ? "max-height: calc(100vh - 140px)"
+        : "height: calc(100% - 35px)";
+    }
+  },
   watch: {
     // 监控是否手动请求
   },
@@ -303,7 +315,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .e-form-box {
-  max-height: calc(100vh - 140px);
   overflow-y: auto;
   overflow-x: hidden;
 }
