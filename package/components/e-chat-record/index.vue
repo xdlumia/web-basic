@@ -2,9 +2,11 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 15:54:47
+ * @LastEditTime: 2020-06-04 16:25:05
  * @Description: 对话记录
+ * @props: id{Number,Sting}         是否显示头像  默认:true
  * @props: avatar{Boolean}         是否显示头像  默认:true
+ * @props: group{Boolean}         是否显示头像  默认:true
  * @props: bubble{Boolean}         是否显示气泡  默认:true
  * @props: senderRight{senderRight}发送者是否居右  默认:true
 
@@ -17,7 +19,7 @@
       <img src="http://test.jswebcall.com/record30/view/img/home_empty.4057a34b.png" alt />
     </div>
 
-    <el-collapse v-if="dateGroup" v-model="activeName" accordion>
+    <el-collapse v-if="group" v-model="activeName" accordion>
       <el-collapse-item title="2020-02-02" name="1">
         <div class="eim-chat-system-tips">
           <i class="el-icon-info"></i>建立对话
@@ -25,7 +27,7 @@
         <chat-list :data="recordData" v-bind="$props"></chat-list>
       </el-collapse-item>
     </el-collapse>
-    <chat-list v-if="!dateGroup && recordData.length" :data="recordData" v-bind="$props"></chat-list>
+    <chat-list v-if="!group && recordData.length" :data="recordData" v-bind="$props"></chat-list>
   </div>
   <!-- </el-scrollbar> -->
 </template>
@@ -114,7 +116,7 @@ export default {
   components: { chatList },
   props: {
     id: [String, Number],
-    dateGroup: {
+    group: {
       type: Boolean,
       default: true
     },

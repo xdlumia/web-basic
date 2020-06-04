@@ -57,9 +57,9 @@
           >
             <el-option
               :key="subItem.code"
-              :label="subItem.content"
-              :value="subItem.code"
-              v-for="subItem in item.options||[]"
+              :label="subItem.label"
+              :value="subItem.value"
+              v-for="subItem in item.dic||[]"
             />
           </el-select>
           <el-checkbox-group
@@ -71,9 +71,8 @@
             <el-checkbox
               :key="subItem.code"
               :label="subItem.value"
-              :value="subItem.code"
-              v-for="subItem in item.options||[]"
-            >{{subItem.lable}}</el-checkbox>
+              v-for="subItem in item.dic||[]"
+            >{{subItem.label}}</el-checkbox>
           </el-checkbox-group>
           <el-radio-group
             :disabled="item.disabled"
@@ -84,9 +83,8 @@
             <el-radio
               :key="subItem.code"
               :label="subItem.value"
-              :value="subItem.code"
-              v-for="subItem in item.options||[]"
-            >{{subItem.lable}}</el-radio>
+              v-for="subItem in item.dic||[]"
+            >{{subItem.label}}</el-radio>
           </el-radio-group>
           <el-date-picker
             v-else-if="['daterange','datetimerange','datetime','date','week','month','year','dates'].includes(item.type)"
@@ -105,7 +103,7 @@
             v-else-if="item.type =='cascader'"
             v-model="value[item.prop]"
             :disabled="item.disabled"
-            :options="item.options||[]"
+            :options="item.dic||[]"
             :props="{ expandTrigger: 'hover' }"
           ></el-cascader>
           <el-switch
@@ -148,11 +146,6 @@ export default {
     lineSpace: {
       type: String,
       default: "15px"
-    },
-    //el-form label-width
-    // 尺寸
-    size: {
-      type: String
     },
     // el-row gutter 栅格间隔
     gutter: {

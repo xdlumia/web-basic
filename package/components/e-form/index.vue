@@ -30,7 +30,11 @@
       :label-position="labelPosition"
     >
       <slot>
-        <e-form-item v-bind="$props"></e-form-item>
+        <e-form-item v-bind="$props">
+          <template v-for="(val,key) in $slots" v-slot:[key]>
+            <slot :name="key"></slot>
+          </template>
+        </e-form-item>
         <!-- <el-row :gutter="gutter">
           <el-col
             :style="`margin-bottom:${lineSpace}`"
@@ -229,10 +233,13 @@ export default {
   data() {
     return {
       loading: false,
+      slot5: "key5",
       isShowFooter: true
     };
   },
-  created() {},
+  created() {
+    console.log(this.$slots);
+  },
   mounted() {
     // 判断footer是否有按钮
     this.isShowFooter = document.querySelector("#formFooter").childNodes.length;

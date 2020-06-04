@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-27 18:25:06
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 17:45:42
+ * @LastEditTime: 2020-06-04 16:23:46
  * @Description: file content
 */
 <template>
@@ -36,7 +36,12 @@ let formItem = [
       console.log(val);
     }
   },
-  { label: "创建者:", prop: "key1", type: "select" },
+  {
+    label: "创建者:",
+    prop: "key1",
+    type: "select",
+    dic: [{ label: "测试", value: 1 }]
+  },
   {
     label: "日期1:",
     prop: "key1",
@@ -47,8 +52,18 @@ let formItem = [
     }
   },
   { label: "日期2:", prop: "key1", type: "datetimerange", span: 12 },
-  { label: "处理状态:", prop: "key1", type: "radio", options: [1, 2] },
-  { label: "子站点:", prop: "key1", type: "checkbox", options: [1, 2] },
+  {
+    label: "处理状态:",
+    prop: "key1",
+    type: "radio",
+    dic: [{ label: "测试", value: 1 }]
+  },
+  {
+    label: "子站点:",
+    prop: "key1",
+    type: "checkbox",
+    dic: [{ label: "测试", value: 1 }]
+  },
   { label: "日期:", prop: "key1", type: "datetime" },
   { label: "省市:", prop: "key1", type: "cascader" },
   { label: "省市:", prop: "key1", type: "switch" },
