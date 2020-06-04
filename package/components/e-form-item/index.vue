@@ -49,6 +49,7 @@
             >{{item.prepend || item.append}}</template>
           </el-input>
           <el-select
+            @input="change(item)"
             class="wfull"
             :disabled="item.disabled"
             :placeholder="`请输入${item.label}`"

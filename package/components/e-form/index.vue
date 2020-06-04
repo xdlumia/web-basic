@@ -20,6 +20,7 @@
 <template>
   <div v-loading="loading" style="height:100%">
     <el-form
+      :api="demoUser"
       :ref="refs"
       :disabled="disabled"
       :model="value"
@@ -28,6 +29,7 @@
       :size="size"
       :label-width="labelWidth"
       :label-position="labelPosition"
+      :label-suffix="labelSuffix"
     >
       <slot>
         <e-form-item v-bind="$props">
@@ -215,6 +217,9 @@ export default {
       type: String,
       default: "right"
     },
+    labelSuffix: {
+      type: String
+    },
 
     // 尺寸
     size: {
@@ -233,13 +238,10 @@ export default {
   data() {
     return {
       loading: false,
-      slot5: "key5",
       isShowFooter: true
     };
   },
-  created() {
-    console.log(this.$slots);
-  },
+  created() {},
   mounted() {
     // 判断footer是否有按钮
     this.isShowFooter = document.querySelector("#formFooter").childNodes.length;
@@ -277,7 +279,7 @@ export default {
     },
     // 打印
     printForm() {
-      console.log("打印成功");
+      this.$emit("print");
     },
     // 表单提交
     async submitForm() {
