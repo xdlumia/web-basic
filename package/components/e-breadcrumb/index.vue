@@ -2,8 +2,20 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-25 18:12:38
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-04-13 22:14:11
- * @Description: file content
+ * @LastEditTime: 2020-06-04 11:39:27
+ * @Description: 面包屑组件 #显示当前页面的路径，快速返回之前的任意页面。
+ * @axample=1 &title=基本用法 &info=默认获取router里mate对象里的title字段文本 
+ //<e-breadcrumb></e-breadcrumb>  //end
+ 
+ * @axample=2 &title=自定义用法 &info=自定义路由内容
+ //<e-breadcrumb>
+    <el-breadcrumb separator="》">
+      <el-breadcrumb-item :to="{ path: '/' }">基础包</el-breadcrumb-item>
+      <el-breadcrumb-item>面包屑组件</el-breadcrumb-item>
+    </el-breadcrumb>
+    <el-button slot="extend" type="warning" icon="el-icon-plus">新增</el-button>
+  </e-breadcrumb>
+ //end
  */
 <template>
   <div class="e-breadcrumb">

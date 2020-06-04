@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-24 16:45:27
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-09 16:00:30
+ * @LastEditTime: 2020-06-03 19:46:40
  * @Description: request
  */
 import axios from 'axios'
@@ -37,10 +37,13 @@ axios.interceptors.request.use(config => {
 // 响应拦截器
 axios.interceptors.response.use(response => {
   const res = response.data;
+  if (res == undefined) {
+    return response
+  }
   if (res.code === undefined) {
     return res
   }
-  if (res.code == 402) {
+  if (res.code == 40004) {
     if (window.router && router.currentRoute.fullPath != '/login' && !router.currentRoute.query
       .token) {
       localStorage.loginRedirect = router.currentRoute.fullPath

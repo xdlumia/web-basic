@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 15:44:30
+ * @LastEditTime: 2020-06-03 19:15:03
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -78,15 +78,20 @@ export default {
     }
   },
   //监控data中的数据变化
-  watch: {},
+  watch: {
+    // 初始化的时候根据mode 不同配置获取加载不同的组件
+    mode: {
+      handler(val) {
+        const sideMain = require(`./side-${val}`).default;
+        this.$options.components.sideMain = sideMain;
+      },
+      immediate: true
+    }
+  },
   //方法集合
   methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {
-    // 初始化的时候根据mode 不同配置获取加载不同的组件
-    const sideMain = require(`./side-${this.mode}`).default;
-    this.$options.components.sideMain = sideMain;
-  },
+  created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
