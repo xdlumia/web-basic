@@ -176,10 +176,13 @@ export default {
         .reduce((data, path, index) => {
           if (apis.length == 1 && !data[path]) {
             console.error(`没有[${path}]这个接口方法`);
+            this.loading = false;
           } else if (apis.length == 2 && index == 0 && !data[path]) {
             console.error(`接口里没有[${path}]这个服务`);
+            this.loading = false;
           } else if (apis.length == 2 && index == 1 && !data[path]) {
             console.error(`[${apis[0]}]服务里没有[${path}]这个接口方法`);
+            this.loading = false;
           }
           return data[path];
         }, this.$api)(params)

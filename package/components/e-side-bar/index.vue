@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 19:15:03
+ * @LastEditTime: 2020-06-04 18:30:10
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -30,7 +30,7 @@ export default {
   name: "e-side-bar",
   props: {
     // 显示
-    visible: { type: Boolean, required: true },
+    visible: { type: Boolean, required: true, default: false },
     // 显示模式 hor 菜单水平展示 ver垂直
     mode: { type: String, default: "hor" },
     // id 所有数据交互根据这一个id查询
