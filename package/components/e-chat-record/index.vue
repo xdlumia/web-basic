@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-04 16:25:05
+ * @LastEditTime: 2020-06-05 10:44:33
  * @Description: 对话记录
  * @props: id{Number,Sting}         是否显示头像  默认:true
  * @props: avatar{Boolean}         是否显示头像  默认:true
@@ -35,12 +35,14 @@
 <script>
 let data = [
   {
-    type: 1,
-    fileType: "jpg",
-    name: "阿冬",
+    type: 1, // 角色
+    fileType: "jpg", //文件类型
+    name: "阿冬", //角色名称
+    //消息内容 //如果是文件 对象类型 { name. size, url, }
     message:
       "http://app.yzinter.com/d/file/news/automobile/2020-06-02/3c34fb9d8a80c12b7b33affb12481bf3.jpg",
-    createTime: 1590473752000,
+    createTime: 1590473752000, //创建时间
+    //头像
     avatarUrl:
       "http://test.easyliao.com/live/styles/images/201805/head-user.png"
   },

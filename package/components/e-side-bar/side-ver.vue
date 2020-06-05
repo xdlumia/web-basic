@@ -3,7 +3,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 18:52:56
+ * @LastEditTime: 2020-06-05 10:56:45
  * @Description: 侧边栏 菜单垂直模式
  * @props: height{String}          高度
  * @props: id{String,Number}          高度
@@ -14,16 +14,16 @@
 
 <template>
   <div class="e-relative" style="height:100%; z-index:2000">
-    <ul class="side-nav ac">
+    <ul class="e-side-nav ac">
       <el-avatar
         :size="38"
         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
       ></el-avatar>
-      <p class="side-nav-name e-elip mb10">小礼堂小礼堂</p>
+      <p class="e-side-nav-name e-elip mb10">小礼堂小礼堂</p>
       <li
         @click="tabClick(item)"
         :class="{'nav-active':activeItem.label ==item.label}"
-        class="side-nav-item"
+        class="e-side-nav-item"
         v-for="item of tabsFilter"
         :key="item.comp"
       >
@@ -152,7 +152,8 @@ export default {
 </script>
 <style lang='scss' scoped>
 $minWidth: 50px;
-.side-nav {
+.e-side-nav {
+  overflow: auto;
   position: absolute;
   z-index: 1;
   padding: 20px 0;
@@ -162,7 +163,7 @@ $minWidth: 50px;
   bottom: 0;
   width: $minWidth;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  .side-nav-item {
+  .e-side-nav-item {
     color: #666;
     line-height: 50px;
     &.nav-active {
@@ -171,7 +172,7 @@ $minWidth: 50px;
       }
     }
   }
-  .side-nav-name {
+  .e-side-nav-name {
     line-height: 20px;
     font-size: 12px;
   }

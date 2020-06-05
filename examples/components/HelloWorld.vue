@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-04 15:10:25
+ * @LastEditTime: 2020-06-05 10:04:50
  * @Description: file content
  */
 <template>
@@ -26,10 +26,10 @@
       <el-button @click="visible=true">新增</el-button>
         <e-table api="logList" />-->
         <!-- el-form组件测试 -->
-        <detail :visible.sync="visible"></detail>
+        <!-- <detail :visible.sync="visible"></detail> -->
       </el-main>
       <e-side-bar
-        mode="ver"
+        mode="hor"
         id="10"
         :visible.sync="visible"
         :show="show"
