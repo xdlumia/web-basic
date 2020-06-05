@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 10:04:50
+ * @LastEditTime: 2020-06-05 14:58:44
  * @Description: file content
  */
 <template>
@@ -10,7 +10,13 @@
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
     <el-container>
       <el-main>
-        <e-table ref="table" border api="demoUser" :params="{}" style="height:calc(100vh - 20px)">
+        <e-table
+          ref="table"
+          border
+          api="mockGetUser"
+          :params="{}"
+          style="height:calc(100vh - 20px)"
+        >
           <el-table-column type="selection" width="60"></el-table-column>
           <el-table-column
             min-width="100px"

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 16:47:38
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 17:18:19
+ * @LastEditTime: 2020-06-05 15:06:24
  * @Description: 留言
 */
 
@@ -60,10 +60,10 @@ formList = formList.map((v, i) => {
   v.prop = `key${i}`;
   return v;
 });
+
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "",
-
   props: {
     height: String
   },

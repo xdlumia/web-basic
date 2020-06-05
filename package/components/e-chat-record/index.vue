@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 10:44:33
+ * @LastEditTime: 2020-06-05 16:19:19
  * @Description: 对话记录
  * @props: id{Number,Sting}         是否显示头像  默认:true
  * @props: avatar{Boolean}         是否显示头像  默认:true
@@ -112,6 +112,7 @@ let data = [
 ];
 data.map((v, i) => (v.id = i));
 import chatList from "./chat-list";
+import axios from "axios";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "e-chat-record",
@@ -152,9 +153,25 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    getChat() {
+      if (this.group) {
+        axios.get("/mock/getChatGroup").then(res => {
+          console.log(res);
+        });
+      } else {
+        axios.get("/mock/getChat").then(res => {
+          // this.recordData = res.data.records || [];
+          console.log(res);
+        });
+      }
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getChat();
+    // this.getChatGroup();
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
