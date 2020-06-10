@@ -90,7 +90,7 @@ export default {
     },
     defaultExpandAll: {
       type: Boolean,
-      default: false
+      default: true
     },
     multiple: {
       type: Boolean,
@@ -147,6 +147,8 @@ export default {
         return this.value;
       },
       set(val) {
+        this.defaultCheckedKeys = this.multiple ? this.value : [this.value];
+        this.defaultExpandedKeys = this.multiple ? this.value : [this.value];
         this.$emit("input", val);
       }
     },
