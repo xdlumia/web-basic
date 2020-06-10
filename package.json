@@ -37,5 +37,10 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "publishConfig": {
+    "set": "npm config set registry http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/",
+    "revert": "npm config set registry http://svn.kinfe.net:8082/repository/easyliao-npm-all/",
+    "registry": "http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/"
+  }
 }
