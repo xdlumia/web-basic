@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-10 15:39:05
+ * @LastEditTime: 2020-06-10 16:19:42
  * @Description: file content
  */
 <template>
@@ -10,7 +10,7 @@
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
     <el-container>
       <el-main>
-        <e-select-tree
+        <!-- <e-select-tree
           multiple
           defaultExpandAll
           v-model="form.a"
@@ -27,7 +27,7 @@
             }]
           }]
         }]"
-        ></e-select-tree>
+        ></e-select-tree>-->
         <e-table
           ref="table"
           border
