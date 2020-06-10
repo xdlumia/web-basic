@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 14:58:44
+ * @LastEditTime: 2020-06-10 15:39:05
  * @Description: file content
  */
 <template>
@@ -10,6 +10,24 @@
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
     <el-container>
       <el-main>
+        <e-select-tree
+          multiple
+          defaultExpandAll
+          v-model="form.a"
+          :data="[{
+          label: '一级 1',
+          id:1,
+          children: [{
+            label: '二级 1-1',
+            id:2,
+            children: [{
+              id:3,
+              children:null,
+              label: '三级 1-1-1'
+            }]
+          }]
+        }]"
+        ></e-select-tree>
         <e-table
           ref="table"
           border
@@ -135,7 +153,8 @@ export default {
       ],
       visible: true,
       form: {
-        key5: [1]
+        key5: [1],
+        a: [1]
       },
       option: formItem
     };
