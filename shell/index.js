@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-18 12:36:57
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-03-26 14:43:23
+ * @LastEditTime: 2020-10-28 18:16:25
  * @Description: file content
  */
 // shell字体颜色 默认=0，黑色=30，红色=31，绿色=32，黄色=33，蓝色=34，紫色=35，天蓝色=36，白色=3
@@ -33,11 +33,11 @@ if(confirm.trim() == '' || confirm.trim().toLowerCase()=='p'){
 }
 // 则升级一位中号，大号不动，小号置为空
 else if(confirm.trim().toLowerCase()=='m'){
-    shell.exec('npm version patch')
+    shell.exec('npm version minor')
 }
 // 升级一位大号，其他位都置为0
 else if(confirm.trim().toLowerCase()=='s'){
-    shell.exec('npm version patch')
+    shell.exec('npm version major')
 }else{
     shell.echo("\033[1;31m Error: 输入错误 已自动退出\033[0m")
     shell.exit()

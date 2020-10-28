@@ -1,5 +1,5 @@
 {
-  "name": "e-web-basic",
+  "name": "web-basic",
   "version": "0.1.98",
   "author": "web.王晓冬",
   "description": "e-web-basic",
@@ -12,7 +12,7 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "b": "vue-cli-service build --target lib --name e-web-basic --dest lib packages/index.js",
+    "b": "vue-cli-service build --target lib --name web-basic --dest lib package/index.js",
     "pub": "node shell"
   },
   "files": [
@@ -23,6 +23,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.9.4",
     "element-ui": "^2.13.2",
+    "readline-sync": "^1.4.10",
     "vue": "^2.6.11",
     "vue-router": "^3.4.8",
     "vuex": "^3.5.1"
