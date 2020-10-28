@@ -19,7 +19,7 @@
  */
 <template>
   <div class="e-breadcrumb">
-    <el-row style="min-height:32px">
+    <el-row style="min-height: 32px">
       <el-col :span="8" class="title e-flex-ver">
         <h5>
           <slot>{{ title }}</slot>
@@ -42,7 +42,7 @@ export default {
   data() {
     //这里存放数据
     return {
-      title: ""
+      title: "",
     };
   },
   //监听属性 类似于data概念
@@ -58,8 +58,8 @@ export default {
           document.title = val.meta.title;
         }
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   //方法集合
   methods: {},
@@ -73,10 +73,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 .e-breadcrumb {
   width: 100%;
   padding: 5px 5px 5px 0;

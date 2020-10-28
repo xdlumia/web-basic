@@ -6,7 +6,7 @@
  * @Description: file content
  */
 import components from './components/index';
-import './style/app.scss';
+import './style/app.less';
 import './utils/verify';
 import './utils/element-extend';
 import filters from './utils/filters.js';

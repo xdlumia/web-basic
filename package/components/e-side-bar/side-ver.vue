@@ -13,7 +13,7 @@
 */
 
 <template>
-  <div class="e-relative" style="height:100%; z-index:2000">
+  <div class="e-relative" style="height: 100%; z-index: 2000">
     <ul class="e-side-nav ac">
       <el-avatar
         :size="38"
@@ -22,12 +22,17 @@
       <p class="e-side-nav-name e-elip mb10">小礼堂小礼堂</p>
       <li
         @click="tabClick(item)"
-        :class="{'nav-active':activeItem.label ==item.label}"
+        :class="{ 'nav-active': activeItem.label == item.label }"
         class="e-side-nav-item"
         v-for="item of tabsFilter"
         :key="item.comp"
       >
-        <el-tooltip class="item" effect="dark" :content="item.label" placement="left">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          :content="item.label"
+          placement="left"
+        >
           <i class="iconfont f22" :class="item.icon"></i>
         </el-tooltip>
       </li>
@@ -37,12 +42,16 @@
     <transition name="el-fade-in-linear">
       <div v-show="isVisible" class="side-main">
         <div class="side-main-header e-flex">
-          <span class="el-icon-close f18" title="关闭" @click="isVisible=false,activeItem={}"></span>
-          <span>{{activeItem.label}}</span>
+          <span
+            class="el-icon-close f18"
+            title="关闭"
+            @click="(isVisible = false), (activeItem = {})"
+          ></span>
+          <span>{{ activeItem.label }}</span>
           <span
             class="el-icon-fixed f18"
             title="固定"
-            :class="{active:isFixed}"
+            :class="{ active: isFixed }"
             @click="isFixed = !isFixed"
           ></span>
         </div>
@@ -50,7 +59,11 @@
           class="e-auto-y"
           :id="id"
           v-bind="activeItem.props"
-          style="height:calc(100% - 50px); padding:10px; box-sizing:border-box"
+          style="
+            height: calc(100% - 50px);
+            padding: 10px;
+            box-sizing: border-box;
+          "
           :is="activeItem.comp"
         ></div>
       </div>
@@ -77,7 +90,7 @@ export default {
     // 侧边栏高度
     height: String,
     // 侧边位置
-    direction: { type: String, default: "right" }
+    direction: { type: String, default: "right" },
   },
   components: { detailed, leaveWord, record },
   data() {
@@ -87,8 +100,8 @@ export default {
       tabs: [
         { label: "访客对话", comp: "record", icon: "el-icon-s-order" },
         { label: "详细信息", comp: "detailed", icon: "el-icon-info" },
-        { label: "访客留言", comp: "leaveWord", icon: "el-icon-s-comment" }
-      ]
+        { label: "访客留言", comp: "leaveWord", icon: "el-icon-s-comment" },
+      ],
     };
   },
   //监听属性 类似于data概念
@@ -99,7 +112,7 @@ export default {
       },
       set(val) {
         this.$emit("update:fixed", val);
-      }
+      },
     },
     isVisible: {
       get() {
@@ -110,18 +123,18 @@ export default {
       },
       set(val) {
         this.$emit("update:visible", val);
-      }
+      },
     },
     tabsFilter() {
       return this.show
         ? this.show.map((item, i) => {
             item = typeof item == "string" ? { label: item } : item;
-            let currObj = this.tabs.find(sub => sub.label == item.label);
+            let currObj = this.tabs.find((sub) => sub.label == item.label);
             currObj = { ...currObj, ...item };
             return currObj;
           })
         : this.tabs;
-    }
+    },
   },
   //监控data中的数据变化
   watch: {},
@@ -135,7 +148,7 @@ export default {
         this.activeItem = item;
         this.isVisible = true;
       }
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -147,10 +160,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 $minWidth: 50px;
 .e-side-nav {
   overflow: auto;

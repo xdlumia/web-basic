@@ -16,7 +16,10 @@
   <!-- <el-scrollbar style="height:100%"> -->
   <div class="eim-chat-main" v-loading="loading">
     <div v-if="!recordData.length" class="ac">
-      <img src="http://test.jswebcall.com/record30/view/img/home_empty.4057a34b.png" alt />
+      <img
+        src="http://test.jswebcall.com/record30/view/img/home_empty.4057a34b.png"
+        alt
+      />
     </div>
 
     <el-collapse v-if="group" v-model="activeName" accordion>
@@ -27,7 +30,11 @@
         <chat-list :data="recordData" v-bind="$props"></chat-list>
       </el-collapse-item>
     </el-collapse>
-    <chat-list v-if="!group && recordData.length" :data="recordData" v-bind="$props"></chat-list>
+    <chat-list
+      v-if="!group && recordData.length"
+      :data="recordData"
+      v-bind="$props"
+    ></chat-list>
   </div>
   <!-- </el-scrollbar> -->
 </template>
@@ -44,7 +51,7 @@ let data = [
     createTime: 1590473752000, //创建时间
     //头像
     avatarUrl:
-      "http://test.easyliao.com/live/styles/images/201805/head-user.png"
+      "http://test.easyliao.com/live/styles/images/201805/head-user.png",
   },
   {
     type: 2,
@@ -53,7 +60,7 @@ let data = [
     message: "恩,你慢慢说",
     createTime: 1590181866000,
     avatarUrl:
-      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg"
+      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg",
   },
   {
     type: 1,
@@ -62,7 +69,7 @@ let data = [
     message: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
     createTime: 1590181866000,
     avatarUrl:
-      "http://test.easyliao.com/live/styles/images/201805/head-user.png"
+      "http://test.easyliao.com/live/styles/images/201805/head-user.png",
   },
   {
     type: 3,
@@ -71,7 +78,7 @@ let data = [
     message: "问你一个问题",
     createTime: 1590181866000,
     avatarUrl:
-      "http://test.easyliao.com/live/styles/images/201805/head-user.png"
+      "http://test.easyliao.com/live/styles/images/201805/head-user.png",
   },
 
   {
@@ -82,7 +89,7 @@ let data = [
       "https://img.tukuppt.com/newpreview_music/08/99/45/5c8971b5b0c2c1474.mp3",
     createTime: 1590181866000,
     avatarUrl:
-      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg"
+      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg",
   },
   {
     type: 1,
@@ -90,7 +97,7 @@ let data = [
     createTime: 1590181866000,
     message: "怎么跳出 forEach啊？  有好的解决办法么？",
     avatarUrl:
-      "http://test.easyliao.com/live/styles/images/201805/head-user.png"
+      "http://test.easyliao.com/live/styles/images/201805/head-user.png",
   },
   {
     type: 2,
@@ -99,7 +106,7 @@ let data = [
       "最好的方法就是不用forEach,最好的方法就是不用forEach,最好的方法就是不用forEach,重要是事说三遍",
     createTime: 1590181866000,
     avatarUrl:
-      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg"
+      "//tva2.sinaimg.cn/crop.0.0.512.512.180/005LMAegjw8f2bp9qg4mrj30e80e8dg5.jpg",
   },
   {
     type: 1,
@@ -107,8 +114,8 @@ let data = [
     message: "恩,没毛病 18210256005",
     createTime: 1590181866000,
     avatarUrl:
-      "http://test.easyliao.com/live/styles/images/201805/head-user.png"
-  }
+      "http://test.easyliao.com/live/styles/images/201805/head-user.png",
+  },
 ];
 data.map((v, i) => (v.id = i));
 import chatList from "./chat-list";
@@ -121,23 +128,23 @@ export default {
     id: [String, Number],
     group: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否显示头像
     avatar: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否显示气泡
     bubble: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 发送者气泡位置
     senderRight: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   data() {
@@ -145,7 +152,7 @@ export default {
     return {
       activeName: "1",
       loading: false,
-      recordData: data
+      recordData: data,
     };
   },
   //监听属性 类似于data概念
@@ -156,16 +163,16 @@ export default {
   methods: {
     getChat() {
       if (this.group) {
-        axios.get("/mock/getChatGroup").then(res => {
+        axios.get("/mock/getChatGroup").then((res) => {
           console.log(res);
         });
       } else {
-        axios.get("/mock/getChat").then(res => {
+        axios.get("/mock/getChat").then((res) => {
           // this.recordData = res.data.records || [];
           console.log(res);
         });
       }
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -180,10 +187,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 el-main {
   padding: 10px;
 }

@@ -30,7 +30,7 @@
         :label="item.label"
         :prop="item.prop"
         :rules="item.rules"
-        style="margin-bottom:0"
+        style="margin-bottom: 0"
       >
         <slot :name="item.prop">
           <el-input
@@ -38,57 +38,71 @@
             class="wfull"
             :maxlength="item.maxlength"
             :placeholder="`请输入${item.label}`"
-            v-if="['text','textarea','password'].includes(item.type)"
-            :show-password="item.type=='password'"
+            v-if="['text', 'textarea', 'password'].includes(item.type)"
+            :show-password="item.type == 'password'"
             :type="item.type"
             v-model.trim="value[item.prop]"
           >
             <template
-              v-if="item.prepend ||item.append"
-              :slot="item.append?'append':'prepend'"
-            >{{item.prepend || item.append}}</template>
+              v-if="item.prepend || item.append"
+              :slot="item.append ? 'append' : 'prepend'"
+              >{{ item.prepend || item.append }}</template
+            >
           </el-input>
           <el-select
             @input="change(item)"
             class="wfull"
             :disabled="item.disabled"
             :placeholder="`请输入${item.label}`"
-            v-else-if="item.type =='select'"
+            v-else-if="item.type == 'select'"
             v-model="value[item.prop]"
           >
             <el-option
               :key="subItem.code"
               :label="subItem.label"
               :value="subItem.value"
-              v-for="subItem in item.dic||[]"
+              v-for="subItem in item.dic || []"
             />
           </el-select>
           <el-checkbox-group
             :disabled="item.disabled"
-            v-else-if="item.type =='checkbox'"
+            v-else-if="item.type == 'checkbox'"
             v-model="value[item.prop]"
             :placeholder="`请输入${item.label}`"
           >
             <el-checkbox
               :key="subItem.code"
               :label="subItem.value"
-              v-for="subItem in item.dic||[]"
-            >{{subItem.label}}</el-checkbox>
+              v-for="subItem in item.dic || []"
+              >{{ subItem.label }}</el-checkbox
+            >
           </el-checkbox-group>
           <el-radio-group
             :disabled="item.disabled"
-            v-else-if="item.type =='radio'"
+            v-else-if="item.type == 'radio'"
             v-model="value[item.prop]"
             :placeholder="`请输入${item.label}`"
           >
             <el-radio
               :key="subItem.code"
               :label="subItem.value"
-              v-for="subItem in item.dic||[]"
-            >{{subItem.label}}</el-radio>
+              v-for="subItem in item.dic || []"
+              >{{ subItem.label }}</el-radio
+            >
           </el-radio-group>
           <el-date-picker
-            v-else-if="['daterange','datetimerange','datetime','date','week','month','year','dates'].includes(item.type)"
+            v-else-if="
+              [
+                'daterange',
+                'datetimerange',
+                'datetime',
+                'date',
+                'week',
+                'month',
+                'year',
+                'dates',
+              ].includes(item.type)
+            "
             class="wfull"
             @change="change(item)"
             :disabled="item.disabled"
@@ -101,14 +115,14 @@
             value-format="timestamp"
           />
           <el-cascader
-            v-else-if="item.type =='cascader'"
+            v-else-if="item.type == 'cascader'"
             v-model="value[item.prop]"
             :disabled="item.disabled"
-            :options="item.dic||[]"
+            :options="item.dic || []"
             :props="{ expandTrigger: 'hover' }"
           ></el-cascader>
           <el-switch
-            v-else-if="item.type =='switch'"
+            v-else-if="item.type == 'switch'"
             style="display: block"
             v-model="value[item.prop]"
             :disabled="item.disabled"
@@ -117,7 +131,10 @@
             :active-text="item.activeText"
             :inactive-text="item.inactiveText"
           ></el-switch>
-          <el-color-picker v-else-if="item.type =='colorPicker'" v-model="value[item.prop]"></el-color-picker>
+          <el-color-picker
+            v-else-if="item.type == 'colorPicker'"
+            v-model="value[item.prop]"
+          ></el-color-picker>
         </slot>
       </el-form-item>
     </el-col>
@@ -131,33 +148,33 @@ export default {
     // v-model对象
     value: {
       required: true,
-      type: Object
+      type: Object,
     },
     //列表配置项
     option: {
       required: true,
       type: Array,
-      default: () => []
+      default: () => [],
     },
     span: {
       type: Number,
-      default: 12
+      default: 12,
     },
     // 行间距
     lineSpace: {
       type: String,
-      default: "15px"
+      default: "15px",
     },
     // el-row gutter 栅格间隔
     gutter: {
       type: Number,
-      default: 10
-    }
+      default: 10,
+    },
   },
   data() {
     return {
       loading: false,
-      isShowFooter: true
+      isShowFooter: true,
     };
   },
   created() {},
@@ -169,7 +186,7 @@ export default {
       return this.$parent.$options._componentTag == "el-dialog"
         ? "max-height: calc(100vh - 140px)"
         : "height: calc(100% - 35px)";
-    }
+    },
   },
   watch: {
     // 监控是否手动请求
@@ -179,11 +196,11 @@ export default {
       if (item.change) {
         item.change(this.value[item.prop]);
       }
-    }
-  }
+    },
+  },
 };
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .el-range-editor.el-input,
 .el-range-editor.el-input__inner {
   width: 100%;

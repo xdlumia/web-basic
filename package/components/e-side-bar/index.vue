@@ -11,7 +11,11 @@
 
 <template>
   <el-aside :width="sideWidth">
-    <div class="side-bar-box" :class="`direction-${direction}`" :style="{height:height}">
+    <div
+      class="side-bar-box"
+      :class="`direction-${direction}`"
+      :style="{ height: height }"
+    >
       <side-main
         :height="height"
         :visible.sync="isVisible"
@@ -40,13 +44,13 @@ export default {
     // 侧边栏高度
     height: { type: String, default: "100vh" },
     // 显示tab 默认显示tabs里的内容
-    show: Array
+    show: Array,
   },
   components: {},
   data() {
     //这里存放数据
     return {
-      fixed: false
+      fixed: false,
     };
   },
   //监听属性 类似于data概念
@@ -55,7 +59,7 @@ export default {
       // 如果侧边栏显示就按按自定义的最大宽度显示. 如果是hor 水平模式 最小宽度10px ver 模式最小宽度50px
       const W = {
         hor: "10px",
-        ver: "50px"
+        ver: "50px",
       };
       return (this.mode == "ver" && this.fixed && this.isVisible) ||
         (this.mode == "hor" && this.isVisible)
@@ -74,8 +78,8 @@ export default {
       },
       set(val) {
         this.$emit("update:visible", val);
-      }
-    }
+      },
+    },
   },
   //监控data中的数据变化
   watch: {
@@ -85,8 +89,8 @@ export default {
         const sideMain = require(`./side-${val}`).default;
         this.$options.components.sideMain = sideMain;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   //方法集合
   methods: {},
@@ -100,10 +104,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 .el-aside {
   overflow: inherit;
   position: relative;

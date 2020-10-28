@@ -7,24 +7,33 @@
 */
 
 <template>
-  <ul class="eim-chat-box" :class="{bubble:bubble}">
+  <ul class="eim-chat-box" :class="{ bubble: bubble }">
     <li
       v-for="item of data"
       :key="item.id"
-      :class="{'eim-chat-mine':[1,3].includes(item.type), 'eim-chat-other':item.type==3, 'right':[1,3].includes(item.type)&&senderRight,'eim-avatar-show':avatar}"
+      :class="{
+        'eim-chat-mine': [1, 3].includes(item.type),
+        'eim-chat-other': item.type == 3,
+        right: [1, 3].includes(item.type) && senderRight,
+        'eim-avatar-show': avatar,
+      }"
     >
       <div class="eim-chat-user">
-        <span v-if="avatar" :style="getAvatar(item.type)" class="eim-chat-avatar"></span>
+        <span
+          v-if="avatar"
+          :style="getAvatar(item.type)"
+          class="eim-chat-avatar"
+        ></span>
         <cite>
-          <span class="eim-chat-name">{{item.name}}</span>
-          <i>{{item.createTime | formatTime}}</i>
+          <span class="eim-chat-name">{{ item.name }}</span>
+          <i>{{ item.createTime | formatTime }}</i>
         </cite>
       </div>
       <div class="eim-chat-text">
         <!-- 图片内容 -->
         <el-image
           class="eim-chat-img b-radius"
-          v-if="isFileType(item,'img')"
+          v-if="isFileType(item, 'img')"
           :preview-src-list="[item.message]"
           :src="item.message"
         ></el-image>
@@ -35,21 +44,33 @@
           controls
           class="eim-chat-video b-radius"
           :src="item.message"
-          v-else-if="isFileType(item,'video')"
-        >您的浏览器不支持 video 标签。</video>
+          v-else-if="isFileType(item, 'video')"
+        >
+          您的浏览器不支持 video 标签。
+        </video>
         <!-- 音频内容 -->
         <audio
           class="eim-chat-audio"
           controls
           :src="item.message"
-          v-else-if="isFileType(item,'audio')"
-        >您的浏览器不支持 audio 标签。</audio>
+          v-else-if="isFileType(item, 'audio')"
+        >
+          您的浏览器不支持 audio 标签。
+        </audio>
         <!-- 附件内容 -->
-        <div class="eim-chat-file b-radius" v-else-if="isFileType(item,'file')">
+        <div
+          class="eim-chat-file b-radius"
+          v-else-if="isFileType(item, 'file')"
+        >
           <div class="e-flex pb10">
-            <i class="eim-chat-file-icon" :style="getFileType(item.fileType)"></i>
-            <div class="f12 ml5" style="line-height:18px">
-              <p class="e-elip" style="width:150px;">这是一个附件这是一个附件这是一个附件这是一个附件这是一个附件</p>
+            <i
+              class="eim-chat-file-icon"
+              :style="getFileType(item.fileType)"
+            ></i>
+            <div class="f12 ml5" style="line-height: 18px">
+              <p class="e-elip" style="width: 150px">
+                这是一个附件这是一个附件这是一个附件这是一个附件这是一个附件
+              </p>
               <p class="e-text-gray">15.5kb</p>
             </div>
           </div>
@@ -65,7 +86,11 @@
         </div>
 
         <!-- 文本内容 -->
-        <span class="eim-chat-txt" v-else v-html="formatPhone(item.message)"></span>
+        <span
+          class="eim-chat-txt"
+          v-else
+          v-html="formatPhone(item.message)"
+        ></span>
       </div>
     </li>
   </ul>
@@ -78,7 +103,7 @@ const AVATAR_TYPE = {
   1: "0 -224px",
   2: "0 -64px",
   3: "-32px -128px",
-  4: "0 0"
+  4: "0 0",
 };
 
 const FILE_TYPE = {
@@ -90,7 +115,7 @@ const FILE_TYPE = {
   xls: "0 0",
   xlsx: "0 0",
   pdf: "0 -72px",
-  html: "30px -144px"
+  html: "30px -144px",
 };
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
@@ -98,23 +123,23 @@ export default {
   props: {
     data: {
       type: Array,
-      default: []
+      default: [],
     },
     // 是否显示头像
     avatar: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否显示气泡
     bubble: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 发送者气泡位置
     senderRight: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   data() {
@@ -141,7 +166,7 @@ export default {
         img: "bmp/gif/jpeg/png/screenShots/mpeg/jpg",
         file: "txt/pdf/doc/docx/xls/xlsx/ppt/pptx/zip/rar/html",
         video: "mp4/ogg/webm",
-        audio: "m4a/aac/mp3/wav"
+        audio: "m4a/aac/mp3/wav",
       };
       return types[fileType].indexOf((item.fileType || "null").toLowerCase()) !=
         -1
@@ -157,7 +182,7 @@ export default {
       } else {
         return text;
       }
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -169,10 +194,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 $e-im-primary: #1e95ff;
 $e-im-info: #eee;
 $e-im-other: #ffefe4;

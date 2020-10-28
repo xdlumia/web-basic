@@ -23,10 +23,10 @@ export default {
   //方法集合
   methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {}
+  created() {},
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 .e-search {
   border-left: 2px solid rgba(106, 133, 151, 1);
   width: 100%;

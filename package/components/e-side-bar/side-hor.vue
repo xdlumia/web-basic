@@ -13,8 +13,13 @@
 
 <template>
   <transition name="el-fade-in-linear">
-    <div class="e-relative" style="height:100%;">
-      <el-tabs v-model="activeName" type="border-card" v-show="isShow" @tab-click="tabClick">
+    <div class="e-relative" style="height: 100%">
+      <el-tabs
+        v-model="activeName"
+        type="border-card"
+        v-show="isShow"
+        @tab-click="tabClick"
+      >
         <el-tab-pane
           v-for="item of tabsFilter"
           :key="item.comp"
@@ -26,13 +31,17 @@
           class="e-auto-y"
           :id="id"
           v-bind="activeProps"
-          :style="{height:tabHeight}"
+          :style="{ height: tabHeight }"
           :is="activeName"
         ></div>
 
         <!-- </keep-alive> -->
       </el-tabs>
-      <div class="nav-fixed" :class="{active:!isShow}" @click="isShow=!isShow"></div>
+      <div
+        class="nav-fixed"
+        :class="{ active: !isShow }"
+        @click="isShow = !isShow"
+      ></div>
     </div>
   </transition>
 </template>
@@ -54,7 +63,7 @@ export default {
     // 侧边栏高度
     height: String,
     // 侧边位置
-    direction: { type: String, default: "right" }
+    direction: { type: String, default: "right" },
   },
   components: { detailed, leaveWord, record },
   data() {
@@ -65,8 +74,8 @@ export default {
       tabs: [
         { label: "详细信息", comp: "detailed" },
         { label: "访客对话", comp: "record" },
-        { label: "访客留言", comp: "leaveWord" }
-      ]
+        { label: "访客留言", comp: "leaveWord" },
+      ],
     };
   },
   //监听属性 类似于data概念
@@ -77,7 +86,7 @@ export default {
       },
       set(val) {
         this.$emit("update:visible", val);
-      }
+      },
     },
     tabHeight() {
       return `calc(${this.height} - 72px)`;
@@ -86,7 +95,7 @@ export default {
       return this.show
         ? this.show.map((item, i) => {
             item = typeof item == "string" ? { label: item } : item;
-            let currObj = this.tabs.find(sub => sub.label == item.label);
+            let currObj = this.tabs.find((sub) => sub.label == item.label);
             currObj = { ...currObj, ...item };
             if (i == 0) {
               this.activeName = currObj.comp;
@@ -95,16 +104,16 @@ export default {
             return currObj;
           })
         : this.tabs;
-    }
+    },
   },
   //监控data中的数据变化
   watch: {},
   //方法集合
   methods: {
     tabClick() {
-      let currObj = this.tabsFilter.find(v => v.comp == this.activeName);
+      let currObj = this.tabsFilter.find((v) => v.comp == this.activeName);
       this.activeProps = currObj.props || {};
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -116,10 +125,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 .nav-fixed {
   position: absolute;
   left: 0;

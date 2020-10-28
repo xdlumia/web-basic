@@ -1,0 +1,298 @@
+body {
+  background: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
+/*字体*/
+.b {
+  font-weight: bold;
+}
+
+.n {
+  font-weight: normal;
+}
+
+// font-size:12px - 50px
+.fontLoop(@n, ) when (@n =< 50) {
+  .f@{n} {
+    font-size: (0px + @n)
+  }
+
+  .fontLoop(@n+1);
+}
+
+.fontLoop(12);
+
+
+/*边距*/
+// margin:0px - 50px 
+/*边距*/
+// margin:0px - 50px 
+.mLoop(@n, ) when (@n =< 50) {
+
+  // margin:0px - 50px 
+  .m@{n} {
+    margin: (0px + @n)
+  }
+
+  // margin-top:0px - 50px 
+  .mt@{n} {
+    margin-top: (0px + @n)
+  }
+
+  // margin-bottom:0px - 50px 
+  .mb@{n} {
+    margin-bottom: (0px + @n)
+  }
+
+  // margin-left:0px - 50px 
+  .ml@{n} {
+    margin-left: (0px + @n)
+  }
+
+  // margin-right:0px - 50px 
+  .mr@{n} {
+    margin-right: (0px + @n)
+  }
+
+  // padding:0px - 50px 
+  .p@{n} {
+    padding: (0px + @n)
+  }
+
+  // padding-top:0px - 50px 
+  .pt@{n} {
+    padding-top: (0px + @n)
+  }
+
+  // padding-bottom:0px - 50px 
+  .pb@{n} {
+    padding-bottom: (0px + @n)
+  }
+
+  // padding-left:0px - 50px 
+  .pl@{n} {
+    padding-left: (0px + @n)
+  }
+
+  // padding-right:0px - 50px 
+  .pr@{n} {
+    padding-right: (0px + @n)
+  }
+
+  .mLoop(@n+5);
+}
+
+.mLoop(0);
+
+// 表单高度 一般用于弹出框 el-form 上面
+.d-form-y {
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+// 宽度
+.w100 {
+  width: 100px
+}
+
+
+
+/*布局*/
+.d-main {
+  min-width: 1200px;
+}
+
+.d-content {
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.d-relative {
+  position: relative;
+}
+
+.d-absolute {
+  position: absolute;
+}
+
+.d-fixed {
+  position: fixed;
+}
+
+
+
+/*浮动*/
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right
+}
+
+/*对齐*/
+.al {
+  text-align: left;
+}
+
+.ac {
+  text-align: center;
+}
+
+.ar {
+  text-align: right;
+}
+
+
+/*辅助*/
+// 不换行
+.d-nowrap {
+  white-space: nowrap;
+}
+
+// 超出隐藏
+.d-elip {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.d-disabled {
+  background: #e8e8e8;
+  color: #999;
+  cursor: not-allowed
+}
+
+.d-pointer {
+  cursor: pointer;
+}
+
+.d-show {
+  display: block;
+}
+
+.d-hide {
+  display: none;
+}
+
+.d-hidden {
+  overflow: hidden;
+}
+
+.d-auto-x {
+  overflow-x: auto;
+}
+
+.d-auto-y {
+  overflow-y: auto;
+}
+
+.d-fieldset {
+  border: 1px solid #d3dce6;
+  border-radius: 2px;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline {
+  display: inlind-block;
+}
+
+.d-middle {
+  vertical-align: middle;
+}
+
+.d-box {
+  box-sizing: border-box;
+}
+
+.d-clear {
+  clear: both;
+}
+
+
+
+
+/*高度*/
+.hfull {
+  height: 100%;
+}
+
+/*宽度*/
+.wfull {
+  width: 100%
+}
+
+
+
+/* 边框   */
+.bt {
+  border-top: 1px solid #dcdfe6;
+}
+
+.bb {
+  border-bottom: 1px solid #dcdfe6;
+}
+
+.bl {
+  border-left: 1px solid #dcdfe6;
+}
+
+.br {
+  border-right: 1px solid #dcdfe6;
+}
+
+.ba {
+  border: 1px solid #dcdfe6;
+}
+
+.bn {
+  border: none;
+}
+
+
+/*flex布局*/
+.d-flex {
+  display: flex;
+}
+
+.d-flex-center {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center
+}
+
+/* 水平居中 */
+.d-flex-hor {
+  display: flex;
+  justify-content: center
+}
+
+/* 垂直居中 */
+.d-flex-ver {
+  display: flex;
+  align-items: center;
+}
+
+/* 分部两边 */
+.d-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.d-cell {
+  flex: 1
+}
+
+.d-shrink {
+  flex-shrink: 1;
+}

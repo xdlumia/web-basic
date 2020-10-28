@@ -34,18 +34,18 @@ let formList = [
     type: "text",
     append: "132",
     rules: { required: true },
-    change: val => {
+    change: (val) => {
       console.log(val);
-    }
+    },
   },
   { label: "创建者:", prop: "key1", type: "select" },
   {
     label: "日期1:",
     prop: "key1",
     type: "daterange",
-    change: e => {
+    change: (e) => {
       console.log(11);
-    }
+    },
   },
   { label: "日期2:", prop: "key1", type: "datetimerange" },
   { label: "处理状态:", prop: "key1", type: "radio", options: [1, 2] },
@@ -54,7 +54,7 @@ let formList = [
   { label: "省市:", prop: "key1", type: "cascader" },
   { label: "省市:", prop: "key1", type: "switch" },
   { label: "省市:", prop: "key1", type: "colorPicker" },
-  { label: "关键词:", prop: "key1", type: "textarea", span: 24 }
+  { label: "关键词:", prop: "key1", type: "textarea", span: 24 },
 ];
 formList = formList.map((v, i) => {
   v.prop = `key${i}`;
@@ -65,14 +65,14 @@ formList = formList.map((v, i) => {
 export default {
   name: "",
   props: {
-    height: String
+    height: String,
   },
 
   data() {
     //这里存放数据
     return {
       form: {},
-      option: formList
+      option: formList,
     };
   },
   //监听属性 类似于data概念
@@ -91,10 +91,10 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
-  activated() {} //如果页面有keep-alive缓存功能，这个函数会触发
+  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
 .detailde-warp {
   .el-form-item--mini.el-form-item {
     margin-bottom: 5px;

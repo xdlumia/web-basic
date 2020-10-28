@@ -18,7 +18,7 @@
 **/
 
 <template>
-  <div v-loading="loading" style="height:100%">
+  <div v-loading="loading" style="height: 100%">
     <el-form
       :api="demoUser"
       :ref="refs"
@@ -33,7 +33,7 @@
     >
       <slot>
         <e-form-item v-bind="$props">
-          <template v-for="(val,key) in $slots" v-slot:[key]>
+          <template v-for="(val, key) in $slots" v-slot:[key]>
             <slot :name="key"></slot>
           </template>
         </e-form-item>
@@ -148,7 +148,7 @@
       v-show="isShowFooter"
       id="formFooter"
       class="ac"
-      style="padding-top:10px; border-top:1px solid #efefef"
+      style="padding-top: 10px; border-top: 1px solid #efefef"
     >
       <slot name="footer">
         <slot name="insBtn"></slot>
@@ -159,7 +159,8 @@
           v-if="!disabled && btns.includes('print')"
           :size="size"
           v-debounce="2000"
-        >打 印</el-button>
+          >打 印</el-button
+        >
         <el-button
           type="primary"
           @click="submitForm"
@@ -167,8 +168,14 @@
           v-if="!disabled && btns.includes('submit')"
           :size="size"
           v-debounce
-        >保 存</el-button>
-        <el-button v-if="btns.includes('cancel')" @click="closeForm" :size="size">取 消</el-button>
+          >保 存</el-button
+        >
+        <el-button
+          v-if="btns.includes('cancel')"
+          @click="closeForm"
+          :size="size"
+          >取 消</el-button
+        >
       </slot>
     </div>
   </div>
@@ -181,64 +188,64 @@ export default {
     // v-model对象
     value: {
       required: true,
-      type: Object
+      type: Object,
     },
     //列表配置项
     option: {
       required: true,
       type: Array,
-      default: () => []
+      default: () => [],
     },
     // form设置ref
     refs: {
       required: true,
-      type: String
+      type: String,
     },
     span: {
       type: Number,
-      default: 12
+      default: 12,
     },
     // 是否禁用
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 行间距
     lineSpace: {
       type: String,
-      default: "15px"
+      default: "15px",
     },
     //el-form label-width
     labelWidth: {
-      type: String
+      type: String,
     },
     //el-form label-width
     labelPosition: {
       type: String,
-      default: "right"
+      default: "right",
     },
     labelSuffix: {
-      type: String
+      type: String,
     },
 
     // 尺寸
     size: {
-      type: String
+      type: String,
     },
     // el-row gutter 栅格间隔
     gutter: {
       type: Number,
-      default: 10
+      default: 10,
     },
     btns: {
       type: Array,
-      default: () => ["submit", "cancel"]
-    }
+      default: () => ["submit", "cancel"],
+    },
   },
   data() {
     return {
       loading: false,
-      isShowFooter: true
+      isShowFooter: true,
     };
   },
   created() {},
@@ -253,7 +260,7 @@ export default {
       return this.$parent.$options._componentTag == "el-dialog"
         ? "max-height: calc(100vh - 140px)"
         : "height: calc(100% - 35px)";
-    }
+    },
   },
   watch: {
     // 监控是否手动请求
@@ -299,7 +306,7 @@ export default {
           .parentElement.scrollIntoView({
             block: "end",
             inline: "nearest",
-            behavior: "smooth"
+            behavior: "smooth",
           });
         throw error;
       }
@@ -310,7 +317,7 @@ export default {
       this.loading = true;
       this.$api
         .projectUserUsers(params)
-        .then(res => {
+        .then((res) => {
           console.log("保存成功");
         })
         .finally(() => {
@@ -318,11 +325,11 @@ export default {
             this.loading = false;
           }, 500);
         });
-    }
-  }
+    },
+  },
 };
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
 .e-form-box {
   overflow-y: auto;
   overflow-x: hidden;

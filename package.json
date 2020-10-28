@@ -28,19 +28,14 @@
     "vue-router": "^3.1.6",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
-    "node-sass": "^4.12.0",
     "readline-sync": "1.4.9",
-    "sass-loader": "^8.0.2",
+    "less": "^3.12.2",
+    "less-loader": "^7.0.1",
     "shelljs": "^0.8.3",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "publishConfig": {
-    "set": "npm config set registry http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/",
-    "revert": "npm config set registry http://svn.kinfe.net:8082/repository/easyliao-npm-all/",
-    "registry": "http://svn.kinfe.net:8082/repository/easyliao-nmp-hosted/"
-  }
+  ]
 }
