@@ -3,7 +3,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 16:45:06
+ * @LastEditTime: 2020-10-28 15:49:16
  * @Description: 侧边栏 菜单水平模式
  * @props: height{String}          高度
  * @props: id{String,Number}          高度
@@ -47,9 +47,7 @@
 </template>
 
 <script>
-import detailed from "./detailed";
-import leaveWord from "./leaveWord";
-import record from "../e-chat-record";
+import record from "../chat-record";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "side-hor",
@@ -65,17 +63,13 @@ export default {
     // 侧边位置
     direction: { type: String, default: "right" },
   },
-  components: { detailed, leaveWord, record },
+  components: { record },
   data() {
     //这里存放数据
     return {
-      activeName: "detailed",
+      activeName: "record",
       activeProps: {},
-      tabs: [
-        { label: "详细信息", comp: "detailed" },
-        { label: "访客对话", comp: "record" },
-        { label: "访客留言", comp: "leaveWord" },
-      ],
+      tabs: [{ label: "访客对话", comp: "record" }],
     };
   },
   //监听属性 类似于data概念

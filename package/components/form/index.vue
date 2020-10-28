@@ -25,18 +25,18 @@
       :disabled="disabled"
       :model="value"
       :style="formMinHeight"
-      class="e-form-box"
+      class="d-form-box"
       :size="size"
       :label-width="labelWidth"
       :label-position="labelPosition"
       :label-suffix="labelSuffix"
     >
       <slot>
-        <e-form-item v-bind="$props">
+        <d-form-item v-bind="$props">
           <template v-for="(val, key) in $slots" v-slot:[key]>
             <slot :name="key"></slot>
           </template>
-        </e-form-item>
+        </d-form-item>
         <!-- <el-row :gutter="gutter">
           <el-col
             :style="`margin-bottom:${lineSpace}`"
@@ -183,7 +183,7 @@
 <script>
 // import Sortable from 'sortablejs'
 export default {
-  name: "e-form",
+  name: "d-form",
   props: {
     // v-model对象
     value: {

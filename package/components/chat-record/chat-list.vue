@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-06-02 17:35:11
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-02 19:34:45
+ * @LastEditTime: 2020-10-28 14:25:32
  * @Description: file content
 */
 
@@ -198,9 +198,9 @@ export default {
 };
 </script>
 <style lang='less' scoped>
-$e-im-primary: #1e95ff;
-$e-im-info: #eee;
-$e-im-other: #ffefe4;
+@d-im-primary: #1e95ff;
+@d-im-info: #eee;
+@d-im-other: #ffefe4;
 .b-radius {
   border-radius: 5px;
   border: 1px solid #d7d7d7;
@@ -277,7 +277,7 @@ $e-im-other: #ffefe4;
   .eim-chat-mine {
     .eim-chat-user {
       cite {
-        color: $e-im-primary;
+        color: @d-im-primary;
       }
     }
   }
@@ -318,7 +318,7 @@ $e-im-other: #ffefe4;
         &::after {
           left: auto;
           right: -10px;
-          border-top-color: $e-im-primary;
+          border-top-color: @d-im-primary;
         }
       }
     }
@@ -340,7 +340,7 @@ $e-im-other: #ffefe4;
     .eim-chat-txt {
       display: inline-block;
       padding: 8px 10px;
-      background-color: $e-im-info;
+      background-color: @d-im-info;
       &::after {
         content: "";
         position: absolute;
@@ -349,7 +349,7 @@ $e-im-other: #ffefe4;
         width: 0;
         height: 0;
         border-style: solid dashed dashed;
-        border-color: $e-im-info transparent transparent;
+        border-color: @d-im-info transparent transparent;
         overflow: hidden;
         border-width: 10px;
       }
@@ -358,20 +358,20 @@ $e-im-other: #ffefe4;
   .eim-chat-mine {
     .eim-chat-text {
       .eim-chat-txt {
-        background-color: $e-im-primary;
+        background-color: @d-im-primary;
         color: #fff;
         &::after {
-          border-color: $e-im-primary transparent transparent;
+          border-color: @d-im-primary transparent transparent;
         }
       }
     }
     &.eim-chat-other {
       .eim-chat-text {
         .eim-chat-txt {
-          background-color: $e-im-other;
+          background-color: @d-im-other;
           color: #434d6a;
           &::after {
-            border-color: $e-im-other transparent transparent;
+            border-color: @d-im-other transparent transparent;
           }
         }
       }
@@ -409,13 +409,13 @@ $e-im-other: #ffefe4;
   .eim-chat-file-opera {
     a {
       &:hover {
-        color: $e-im-primary;
+        color: @d-im-primary;
       }
     }
     padding-top: 8px;
     font-size: 12px;
     text-align: center;
-    border-top: 1px solid $e-im-info;
+    border-top: 1px solid @d-im-info;
   }
 }
 .eim-chat-audio {

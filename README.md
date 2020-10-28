@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:31
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-03-20 15:46:05
+ * @LastEditTime: 2020-10-28 14:22:20
  * @Description: file content
  -->
 # e-web-basic
@@ -112,7 +112,7 @@ new Vue({
 > ```
 > |  名称  | 说明  | 默认参数 |
 > |  :---  | :---  |  ----  |
-> | timeToStr | 时间戳转字符串 详细参数参考[moment](http://momentjs.cn/) | 'YYYY-MM-DD' |
+> | timeToStr | 时间戳转字符串 详细参数参考[dayjs](https://dayjs.gitee.io/zh-CN/) | 'YYYY-MM-DD' |
 > | toThousand | 千分位分隔符 *10000 => "10,000"* | - |
 
 #### 自定义指令 

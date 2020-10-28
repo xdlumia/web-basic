@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 16:19:19
+ * @LastEditTime: 2020-10-28 16:19:50
  * @Description: 对话记录
  * @props: id{Number,Sting}         是否显示头像  默认:true
  * @props: avatar{Boolean}         是否显示头像  默认:true
@@ -122,7 +122,7 @@ import chatList from "./chat-list";
 import axios from "axios";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
-  name: "e-chat-record",
+  name: "d-chat-record",
   components: { chatList },
   props: {
     id: [String, Number],

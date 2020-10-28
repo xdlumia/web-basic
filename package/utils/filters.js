@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2019-08-01 11:54:35
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-05-26 14:17:30
+ * @LastEditTime: 2020-10-28 14:22:31
  * @Description: 自定义过滤器 filter
  * @axample: 
  //时间戳日期转字符串
@@ -11,7 +11,7 @@
  //方法里调用 过滤器
  this.$options.filters(time,'YYYY-MM-DD')
  */
-import moment from 'moment'; // 日期格式化
+import dayjs from 'dayjs'; // 日期格式化
 
 const filters = {
   /**
@@ -22,7 +22,7 @@ const filters = {
     if (typeof value !== 'number') {
       return '';
     }
-    return moment(value).format(formatString);
+    return dayjs(value).format(formatString);
   }, //end
   /**
    * @desc 时间格式化{Number} {string} <30秒=刚刚 >30秒=几分钟前 =几小时前  =x月x日 01:01 
@@ -50,7 +50,7 @@ const filters = {
       return '1天前'
     }
     if (option) {
-      return moment(time).format(option)
+      return dayjs(time).format(option)
     } else {
       return (
         d.getMonth() +

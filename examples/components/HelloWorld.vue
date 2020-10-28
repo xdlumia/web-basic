@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-10 16:51:23
+ * @LastEditTime: 2020-10-28 15:46:04
  * @Description: file content
  */
 <template>
@@ -10,30 +10,36 @@
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
     <el-container>
       <el-main>
-        <e-select-tree
+        <d-select-tree
           multiple
           defaultExpandAll
           v-model="form.a"
-          :data="[{
-          label: '一级 1',
-          id:1,
-          children: [{
-            label: '二级 1-1',
-            id:2,
-            children: [{
-              id:3,
-              children:null,
-              label: '三级 1-1-1'
-            }]
-          }]
-        }]"
-        ></e-select-tree>
-        <e-table
+          :data="[
+            {
+              label: '一级 1',
+              id: 1,
+              children: [
+                {
+                  label: '二级 1-1',
+                  id: 2,
+                  children: [
+                    {
+                      id: 3,
+                      children: null,
+                      label: '三级 1-1-1',
+                    },
+                  ],
+                },
+              ],
+            },
+          ]"
+        ></d-select-tree>
+        <d-table
           ref="table"
           border
           api="mockGetUser"
           :params="{}"
-          style="height:calc(100vh - 20px)"
+          style="height: calc(100vh - 20px)"
         >
           <el-table-column type="selection" width="60"></el-table-column>
           <el-table-column
@@ -43,7 +49,7 @@
             :prop="item.prop"
             :label="item.label"
           ></el-table-column>
-        </e-table>
+        </d-table>
         <!-- <e-breadcrumb />
       <e-search />
       <h1 class="ac mt50">fsfsdfsf</h1>
@@ -52,13 +58,13 @@
         <!-- el-form组件测试 -->
         <!-- <detail :visible.sync="visible"></detail> -->
       </el-main>
-      <e-side-bar
+      <d-side-bar
         mode="hor"
         id="10"
         :visible.sync="visible"
         :show="show"
         height="calc(100vh - 63px)"
-      ></e-side-bar>
+      ></d-side-bar>
     </el-container>
   </div>
 </template>
@@ -71,43 +77,43 @@ let formItem = [
     type: "text",
     append: "132",
     rules: { required: true },
-    change: val => {
+    change: (val) => {
       console.log(val);
-    }
+    },
   },
   {
     label: "创建者:",
     prop: "key1",
     type: "select",
-    dic: [{ label: "测试", value: 1 }]
+    dic: [{ label: "测试", value: 1 }],
   },
   {
     label: "日期1:",
     prop: "key1",
     type: "daterange",
     span: 12,
-    change: e => {
+    change: (e) => {
       console.log(11);
-    }
+    },
   },
   { label: "日期2:", prop: "key1", type: "datetimerange", span: 12 },
   {
     label: "处理状态:",
     prop: "key1",
     type: "radio",
-    dic: [{ label: "测试", value: 1 }]
+    dic: [{ label: "测试", value: 1 }],
   },
   {
     label: "子站点:",
     prop: "key1",
     type: "checkbox",
-    dic: [{ label: "测试", value: 1 }]
+    dic: [{ label: "测试", value: 1 }],
   },
   { label: "日期:", prop: "key1", type: "datetime" },
   { label: "省市:", prop: "key1", type: "cascader" },
   { label: "省市:", prop: "key1", type: "switch" },
   { label: "省市:", prop: "key1", type: "colorPicker" },
-  { label: "关键词:", prop: "key1", type: "textarea", span: 24 }
+  { label: "关键词:", prop: "key1", type: "textarea", span: 24 },
 ];
 formItem = formItem.map((v, i) => {
   v.prop = `key${i}`;
@@ -131,7 +137,7 @@ let col = [
   { label: "省份", width: "180px", prop: "handle" },
   { label: "城市", width: "180px", prop: "handle" },
   { label: "子站点", width: "180px", prop: "handle" },
-  { label: "设置类型", width: "180px", prop: "handle" }
+  { label: "设置类型", width: "180px", prop: "handle" },
 ];
 col = col.map((v, i) => {
   v.prop = `key${i}`;
@@ -141,7 +147,7 @@ import detail from "./detail.vue";
 export default {
   name: "msg",
   props: {
-    msg: String
+    msg: String,
   },
   data() {
     return {
@@ -149,14 +155,14 @@ export default {
       show: [
         { label: "访客对话", props: { bubble: true, avatar: true } },
         "访客留言",
-        "详细信息"
+        "详细信息",
       ],
       visible: true,
       form: {
         key5: [1],
-        a: [1]
+        a: [1],
       },
-      option: formItem
+      option: formItem,
     };
   },
   components: { detail },
@@ -170,9 +176,9 @@ export default {
       // 对form数据重新处理
       form.aaa = 1;
       done();
-    }
+    },
   },
-  created() {}
+  created() {},
 };
 </script>
 

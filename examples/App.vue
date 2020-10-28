@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-02 10:53:22
+ * @LastEditTime: 2020-10-28 16:49:51
  * @Description: file content
  */
 <template>
@@ -17,9 +17,9 @@ import vue from "vue";
 export default {
   name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
   },
-  created() {}
+  created() {},
 };
 </script>
 

@@ -21,7 +21,6 @@
   <div>
     <!-- 表格数据 -->
     <el-table
-      :row-key="rowKey"
       :class="dragClass"
       :height="tableHeight"
       :row-class-name="rowClassName"
@@ -29,16 +28,13 @@
       :data="tableData"
       :reserve-selection="true"
       :border="border"
-      :style="{height:tableHeight}"
+      :style="{ height: tableHeight }"
       v-loading="loading"
       :size="size"
+      style="width: 100%"
       @sort-change="sortChange"
-      @selection-change="selectionChange"
-      @current-change="currentChange"
-      @row-click="rowClick"
-      style="width: 100%;"
-      :summary-method="summaryMethod"
-      :show-summary="showSummary"
+      v-on="$listeners"
+      v-bind="$attrs"
       ref="elTable"
     >
       <slot></slot>
@@ -59,62 +55,62 @@
 <script>
 // import Sortable from 'sortablejs'
 export default {
-  name: "e-table",
+  name: "d-table",
   props: {
     //请求接口
     api: {
-      required: true
+      required: true,
     },
     //参数
     params: {
       type: [Object, String, Number],
-      default: function() {
+      default: function () {
         return { page: 1, size: 15 };
-      }
+      },
     },
     // 尺寸
     size: {
       type: String,
-      default: "small"
+      default: "small",
     },
     // border
     border: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 分页
     page: {
       type: Boolean,
-      default: true
+      default: true,
     },
     dragClass: {
       type: String,
-      default: "elTableDragDefault"
+      default: "elTableDragDefault",
     },
     // 自定义行class
     rowClassName: {
-      default: function() {
+      default: function () {
         return this.dragClass;
-      }
+      },
     },
     // 是否显示合计
     showSummary: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 合计方法
     summaryMethod: {
-      type: Function
+      type: Function,
     },
 
     // 自动调用接口请求
     autoInit: {
-      default: true
+      default: true,
     },
     rowKey: {
       type: String,
-      default: "id"
-    }
+      default: "id",
+    },
   },
   data() {
     return {
@@ -122,7 +118,7 @@ export default {
       tableData: [], //表格数据
       loading: false, //loading动画
       // 返回所有响应数据
-      response: {}
+      response: {},
     };
   },
   created() {
@@ -142,9 +138,9 @@ export default {
     window.removeEventListener("reset", this.resizeTable);
   },
   computed: {
-    tableHeight: function() {
+    tableHeight: function () {
       return this.page ? "calc(100% - 32px)" : "100%";
-    }
+    },
   },
   watch: {
     // 监控是否手动请求
@@ -152,7 +148,7 @@ export default {
       if (val) {
         this.init(this.params);
       }
-    }
+    },
   },
   methods: {
     resizeTable() {
@@ -186,7 +182,7 @@ export default {
           }
           return data[path];
         }, this.$api)(params)
-        .then(res => {
+        .then((res) => {
           this.response = res || {};
           this.tableData = res.data.records || [];
           this.$emit("response", res || {});
@@ -213,20 +209,17 @@ export default {
         this.init(this.params);
       });
     },
-    // 多选
-    selectionChange(val) {
-      this.$emit("selection-change", val);
-    },
-    // 单选
-    currentChange(currentRow, oldCurrentRow) {
-      this.$emit("current-change", currentRow, oldCurrentRow);
-    },
-    rowClick(row, event, column) {
-      this.$emit("row-click", row, event, column);
-    },
+
     // 排序
     sortChange(column, prop, order) {
-      this.$emit("sort-change", column, prop, order);
+      // 如果用户自定义排序方法
+      if (this.$listeners.onSortChange) {
+        this.$emit("sort-change", column, prop, order);
+      } else {
+        this.params.orderKey = column.key;
+        this.params.orderType = column.order;
+        this.reload(1);
+      }
     },
     // 表格翻页
     // pageChange(page) {
@@ -250,9 +243,9 @@ export default {
           const currRow = _this.tableData.splice(oldIndex, 1)[0];
           _this.tableData.splice(newIndex, 0, currRow);
           _this.$emit("dragEnd", _this.tableData);
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>

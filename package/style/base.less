@@ -4,7 +4,11 @@ body {
   color: #333;
 }
 
-/*字体*/
+// css前缀
+@prefix-cls: d-;
+
+
+// 字体
 .b {
   font-weight: bold;
 }
@@ -25,9 +29,7 @@ body {
 .fontLoop(12);
 
 
-/*边距*/
-// margin:0px - 50px 
-/*边距*/
+// 边距
 // margin:0px - 50px 
 .mLoop(@n, ) when (@n =< 50) {
 
@@ -86,45 +88,6 @@ body {
 
 .mLoop(0);
 
-// 表单高度 一般用于弹出框 el-form 上面
-.d-form-y {
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-}
-
-// 宽度
-.w100 {
-  width: 100px
-}
-
-
-
-/*布局*/
-.d-main {
-  min-width: 1200px;
-}
-
-.d-content {
-  padding: 10px;
-  background: #fff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .1);
-  border-radius: 3px;
-  box-sizing: border-box;
-}
-
-.d-relative {
-  position: relative;
-}
-
-.d-absolute {
-  position: absolute;
-}
-
-.d-fixed {
-  position: fixed;
-}
-
-
 
 /*浮动*/
 .fl {
@@ -135,7 +98,7 @@ body {
   float: right
 }
 
-/*对齐*/
+// 对齐
 .al {
   text-align: left;
 }
@@ -149,90 +112,22 @@ body {
 }
 
 
-/*辅助*/
-// 不换行
-.d-nowrap {
-  white-space: nowrap;
-}
-
-// 超出隐藏
-.d-elip {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.d-disabled {
-  background: #e8e8e8;
-  color: #999;
-  cursor: not-allowed
-}
-
-.d-pointer {
-  cursor: pointer;
-}
-
-.d-show {
-  display: block;
-}
-
-.d-hide {
-  display: none;
-}
-
-.d-hidden {
-  overflow: hidden;
-}
-
-.d-auto-x {
-  overflow-x: auto;
-}
-
-.d-auto-y {
-  overflow-y: auto;
-}
-
-.d-fieldset {
-  border: 1px solid #d3dce6;
-  border-radius: 2px;
-}
-
-.d-block {
-  display: block;
-}
-
-.d-inline {
-  display: inlind-block;
-}
-
-.d-middle {
-  vertical-align: middle;
-}
-
-.d-box {
-  box-sizing: border-box;
-}
-
-.d-clear {
-  clear: both;
-}
 
 
 
-
-/*高度*/
+// 高度
 .hfull {
   height: 100%;
 }
 
-/*宽度*/
+// 宽度
 .wfull {
   width: 100%
 }
 
 
 
-/* 边框   */
+// 边框
 .bt {
   border-top: 1px solid #dcdfe6;
 }
@@ -258,41 +153,173 @@ body {
 }
 
 
-/*flex布局*/
-.d-flex {
-  display: flex;
-}
+// 表单高度 一般用于弹出框 el-form 上面
+.@{prefix-cls} {
 
-.d-flex-center {
-  display: flex;
-  flex-flow: wrap;
-  align-items: center;
-  justify-content: center
-}
+  // 布局
 
-/* 水平居中 */
-.d-flex-hor {
-  display: flex;
-  justify-content: center
-}
+  &content {
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
 
-/* 垂直居中 */
-.d-flex-ver {
-  display: flex;
-  align-items: center;
-}
+  &relative {
+    position: relative;
+  }
 
-/* 分部两边 */
-.d-flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  &absolute {
+    position: absolute;
+  }
 
-.d-cell {
-  flex: 1
-}
+  &fixed {
+    position: fixed;
+  }
 
-.d-shrink {
-  flex-shrink: 1;
+
+  // 辅助
+  // 不换行
+  &nowrap {
+    white-space: nowrap;
+  }
+
+  // 超出隐藏
+  &elip {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &disabled {
+    background: #e8e8e8;
+    color: #999;
+    cursor: not-allowed
+  }
+
+  &pointer {
+    cursor: pointer;
+  }
+
+  &show {
+    display: block;
+  }
+
+  &hide {
+    display: none;
+  }
+
+  &hidden {
+    overflow: hidden;
+  }
+
+  &auto-x {
+    overflow-x: auto;
+  }
+
+  &auto-y {
+    overflow-y: auto;
+  }
+
+  &fieldset {
+    border: 1px solid #d3dce6;
+    border-radius: 2px;
+  }
+
+  &block {
+    display: block;
+  }
+
+  &inline {
+    display: inlind-block;
+  }
+
+  &middle {
+    vertical-align: middle;
+  }
+
+  &box {
+    box-sizing: border-box;
+  }
+
+  &clear {
+    clear: both;
+  }
+
+
+  // flex布局
+  &flex {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    // 垂直水平居中
+    &-center {
+      display: flex;
+      flex-flow: wrap;
+      align-items: center;
+      justify-content: center
+    }
+
+    // 水平居中 x轴居中
+    &-x {
+      display: flex;
+      justify-content: center
+    }
+
+    // 垂直居中 y轴居中
+    &-y {
+      display: flex;
+      align-items: center;
+    }
+
+    // x轴原点
+    &-start {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    // x轴反方向
+    &-end {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+
+    // x轴有间隔地平分
+    &-around {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    // x轴平分
+    &-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    // 顶部对齐
+    &-top {
+      align-items: flex-start;
+    }
+
+    // 底部对齐
+    &-bottom {
+      align-items: flex-end;
+    }
+
+  }
+
+
+
+
+  &cell {
+    flex: 1
+  }
+
+  &shrink {
+    flex-shrink: 1;
+  }
 }

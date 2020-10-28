@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 15:07:35
+ * @LastEditTime: 2020-10-28 15:54:26
  * @Description: 侧边栏
  * @props: height{String}          高度
  * @props: show{Array}             显示的tab页签  默认:全部显示
@@ -31,7 +31,7 @@
 <script>
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
-  name: "e-side-bar",
+  name: "d-side-bar",
   props: {
     // 显示
     visible: { type: Boolean, required: true, default: false },

@@ -143,7 +143,7 @@
 <script>
 // import Sortable from 'sortablejs'
 export default {
-  name: "e-form-item",
+  name: "d-form-item",
   props: {
     // v-model对象
     value: {

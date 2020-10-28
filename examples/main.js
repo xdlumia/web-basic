@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-03 18:39:20
+ * @LastEditTime: 2020-10-28 16:49:41
  * @Description: file content
  */
 import Vue from 'vue';
@@ -10,9 +10,7 @@ import App from './App.vue';
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
-import {
-  eWebBasic
-} from '../package/index';
+import webBasic from '../package/index';
 
 // import {
 //   eWebBasic
@@ -22,7 +20,7 @@ import './api'
 Vue.use(ElementUI, {
   size: 'mini'
 });
-Vue.use(eWebBasic);
+Vue.use(webBasic);
 new Vue({
   router,
   render: (h) => h(App),

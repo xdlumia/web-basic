@@ -3,7 +3,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 10:56:45
+ * @LastEditTime: 2020-10-28 15:49:37
  * @Description: 侧边栏 菜单垂直模式
  * @props: height{String}          高度
  * @props: id{String,Number}          高度
@@ -13,17 +13,17 @@
 */
 
 <template>
-  <div class="e-relative" style="height: 100%; z-index: 2000">
-    <ul class="e-side-nav ac">
+  <div class="d-relative" style="height: 100%; z-index: 2000">
+    <ul class="d-side-nav ac">
       <el-avatar
         :size="38"
         src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
       ></el-avatar>
-      <p class="e-side-nav-name e-elip mb10">小礼堂小礼堂</p>
+      <p class="d-side-nav-name e-elip mb10">小礼堂小礼堂</p>
       <li
         @click="tabClick(item)"
         :class="{ 'nav-active': activeItem.label == item.label }"
-        class="e-side-nav-item"
+        class="d-side-nav-item"
         v-for="item of tabsFilter"
         :key="item.comp"
       >
@@ -73,9 +73,7 @@
 </template>
 
 <script>
-import detailed from "./detailed";
-import leaveWord from "./leaveWord";
-import record from "../e-chat-record";
+import record from "../chat-record";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "side-ver",
@@ -92,16 +90,12 @@ export default {
     // 侧边位置
     direction: { type: String, default: "right" },
   },
-  components: { detailed, leaveWord, record },
+  components: { record },
   data() {
     //这里存放数据
     return {
       activeItem: {},
-      tabs: [
-        { label: "访客对话", comp: "record", icon: "el-icon-s-order" },
-        { label: "详细信息", comp: "detailed", icon: "el-icon-info" },
-        { label: "访客留言", comp: "leaveWord", icon: "el-icon-s-comment" },
-      ],
+      tabs: [{ label: "访客对话", comp: "record", icon: "el-icon-s-order" }],
     };
   },
   //监听属性 类似于data概念
@@ -164,8 +158,8 @@ export default {
 };
 </script>
 <style lang='less' scoped>
-$minWidth: 50px;
-.e-side-nav {
+@minWidth: 50px;
+.d-side-nav {
   overflow: auto;
   position: absolute;
   z-index: 1;
@@ -174,9 +168,9 @@ $minWidth: 50px;
   right: 0px;
   top: 0;
   bottom: 0;
-  width: $minWidth;
+  width: @minWidth;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  .e-side-nav-item {
+  .d-side-nav-item {
     color: #666;
     line-height: 50px;
     &.nav-active {
@@ -185,7 +179,7 @@ $minWidth: 50px;
       }
     }
   }
-  .e-side-nav-name {
+  .d-side-nav-name {
     line-height: 20px;
     font-size: 12px;
   }

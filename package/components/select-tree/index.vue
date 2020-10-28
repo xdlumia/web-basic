@@ -17,13 +17,18 @@
 **/
 -->
 <template>
-  <el-popover placement="bottom-start" width="200" trigger="click" v-model="isShowSelect">
+  <el-popover
+    placement="bottom-start"
+    width="200"
+    trigger="click"
+    v-model="isShowSelect"
+  >
     <slot name="extend"></slot>
     <el-input v-model="filterText"></el-input>
     <el-tree
       ref="selectTree"
       v-loading="loading"
-      style="height:260px;overflow-y: scroll;"
+      style="height: 260px; overflow-y: scroll"
       v-show="isShowSelect"
       :data="treeDatas"
       :check-strictly="true"
@@ -53,7 +58,7 @@
       :placeholder="placeholder"
     >
       <el-option
-        v-for="(item,index) in options"
+        v-for="(item, index) in options"
         :key="index"
         :label="item[props.label]"
         :value="item[nodeKey]"
@@ -63,42 +68,43 @@
 </template>
 <script>
 export default {
+  name: "d-select-tree",
   props: {
     value: { required: false },
     data: { type: Array },
     //请求接口
     api: {
-      required: false
+      required: false,
     },
     params: {
-      type: [Object, String, Number]
+      type: [Object, String, Number],
     },
     collapseTags: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     props: {
       type: Object,
       default: () => ({
         label: "label",
-        children: "children"
-      })
+        children: "children",
+      }),
     },
     defaultExpandAll: {
       type: Boolean,
-      default: true
+      default: true,
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     size: { type: String, default: "small" },
     nodeKey: { type: String, default: "id" },
-    placeholder: { type: String, default: "请选择" }
+    placeholder: { type: String, default: "请选择" },
   },
   data() {
     return {
@@ -109,7 +115,7 @@ export default {
       isShowSelect: false,
       options: [],
       defaultExpandedKeys: [],
-      defaultCheckedKeys: []
+      defaultCheckedKeys: [],
     };
   },
   watch: {
@@ -126,14 +132,14 @@ export default {
         this.defaultCheckedKeys = this.multiple ? this.value : [this.value];
         this.defaultExpandedKeys = this.multiple ? this.value : [this.value];
       },
-      immediate: true
+      immediate: true,
     },
     data: {
-      handler: function(data) {
+      handler: function (data) {
         this.findTreeNode(data, this.value);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {},
   created() {
@@ -150,7 +156,7 @@ export default {
         this.defaultCheckedKeys = this.multiple ? this.value : [this.value];
         this.defaultExpandedKeys = this.multiple ? this.value : [this.value];
         this.$emit("input", val);
-      }
+      },
     },
     treeDatas() {
       return this.api ? this.treeData : this.data;
@@ -162,14 +168,14 @@ export default {
     // 实时更新url
     url() {
       return this.api.split(".")[1];
-    }
+    },
   },
   methods: {
     init(params) {
       this.loading = true;
       this.$api[this.server]
         [this.url](params)
-        .then(res => {
+        .then((res) => {
           this.treeData = res.data || [];
           this.findTreeNode(this.treeData, this.value);
         })
@@ -196,14 +202,14 @@ export default {
       this.options = checked.checkedNodes;
       this.$emit(
         "input",
-        this.options.map(item => item[this.nodeKey])
+        this.options.map((item) => item[this.nodeKey])
       );
     },
     // 递归查询树形节点
     findTreeNode(tree, val) {
       if (this.value || (this.value || []).length) {
         if (this.multiple) {
-          tree.forEach(item => {
+          tree.forEach((item) => {
             if (val.includes(item[this.nodeKey])) {
               this.options.push(item);
             }
@@ -227,8 +233,8 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

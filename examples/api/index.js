@@ -2,16 +2,13 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-20 18:26:00
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-06-05 14:59:00
+ * @LastEditTime: 2020-10-28 16:50:54
  * @Description: file content
  */
 
 
-import {
-  api
-} from '../../package/index';
+import {api} from '../../package/index';
 import axios from 'axios'
-
 
 import serviceApi from './service-api.js'
 
