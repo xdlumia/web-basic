@@ -1,6 +1,6 @@
 {
-  "name": "web-basic",
-  "version": "0.1.98",
+  "name": "web-basic-test",
+  "version": "0.1.01",
   "author": "web.王晓冬",
   "description": "e-web-basic",
   "main": "package/index.js",

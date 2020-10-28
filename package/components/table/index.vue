@@ -30,7 +30,6 @@
       :border="border"
       :style="{ height: tableHeight }"
       v-loading="loading"
-      :size="size"
       style="width: 100%"
       @sort-change="sortChange"
       v-on="$listeners"
@@ -68,11 +67,6 @@ export default {
         return { page: 1, size: 15 };
       },
     },
-    // 尺寸
-    size: {
-      type: String,
-      default: "small",
-    },
     // border
     border: {
       type: Boolean,
@@ -93,23 +87,9 @@ export default {
         return this.dragClass;
       },
     },
-    // 是否显示合计
-    showSummary: {
-      type: Boolean,
-      default: false,
-    },
-    // 合计方法
-    summaryMethod: {
-      type: Function,
-    },
-
     // 自动调用接口请求
     autoInit: {
       default: true,
-    },
-    rowKey: {
-      type: String,
-      default: "id",
     },
   },
   data() {
