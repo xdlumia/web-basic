@@ -3,7 +3,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-05-21 15:23:42
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-10-28 15:49:16
+ * @LastEditTime: 2020-10-29 10:19:01
  * @Description: 侧边栏 菜单水平模式
  * @props: height{String}          高度
  * @props: id{String,Number}          高度
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import record from "../chat-record";
+import record from "../chat";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "side-hor",

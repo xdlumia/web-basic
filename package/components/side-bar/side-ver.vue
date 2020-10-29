@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import record from "../chat-record";
+import record from "../chat";
 //例如：import 《组件名称》 from '《组件路径》';
 export default {
   name: "side-ver",
