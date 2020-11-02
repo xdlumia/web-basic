@@ -26,10 +26,7 @@
       :model="value"
       :style="formMinHeight"
       class="d-form-box"
-      :size="size"
-      :label-width="labelWidth"
-      :label-position="labelPosition"
-      :label-suffix="labelSuffix"
+      v-bind="$attrs"
     >
       <slot>
         <d-form-item v-bind="$props">
@@ -37,111 +34,6 @@
             <slot :name="key"></slot>
           </template>
         </d-form-item>
-        <!-- <el-row :gutter="gutter">
-          <el-col
-            :style="`margin-bottom:${lineSpace}`"
-            class="mb15"
-            :span="item.span || span"
-            v-for="item of option"
-            :key="item.prop"
-          >
-            <el-form-item
-              :label="item.label"
-              :prop="item.prop"
-              :rules="item.rules"
-              style="margin-bottom:0"
-            >
-              <slot :name="item.prop">
-                <el-input
-                  @input="change(item)"
-                  class="wfull"
-                  :maxlength="item.maxlength"
-                  :placeholder="`请输入${item.label}`"
-                  v-if="['text','textarea','password'].includes(item.type)"
-                  :show-password="item.type=='password'"
-                  :type="item.type"
-                  v-model.trim="value[item.prop]"
-                >
-                  <template
-                    v-if="item.prepend ||item.append"
-                    :slot="item.append?'append':'prepend'"
-                  >{{item.prepend || item.append}}</template>
-                </el-input>
-                <el-select
-                  class="wfull"
-                  :disabled="item.disabled"
-                  :placeholder="`请输入${item.label}`"
-                  v-else-if="item.type =='select'"
-                  v-model="value[item.prop]"
-                >
-                  <el-option
-                    :key="subItem.code"
-                    :label="subItem.content"
-                    :value="subItem.code"
-                    v-for="subItem in item.options||[]"
-                  />
-                </el-select>
-                <el-checkbox-group
-                  :disabled="item.disabled"
-                  v-else-if="item.type =='checkbox'"
-                  v-model="value[item.prop]"
-                  :placeholder="`请输入${item.label}`"
-                >
-                  <el-checkbox
-                    :key="subItem.code"
-                    :label="subItem.value"
-                    :value="subItem.code"
-                    v-for="subItem in item.options||[]"
-                  >{{subItem.lable}}</el-checkbox>
-                </el-checkbox-group>
-                <el-radio-group
-                  :disabled="item.disabled"
-                  v-else-if="item.type =='radio'"
-                  v-model="value[item.prop]"
-                  :placeholder="`请输入${item.label}`"
-                >
-                  <el-radio
-                    :key="subItem.code"
-                    :label="subItem.value"
-                    :value="subItem.code"
-                    v-for="subItem in item.options||[]"
-                  >{{subItem.lable}}</el-radio>
-                </el-radio-group>
-                <el-date-picker
-                  v-else-if="['daterange','datetimerange','datetime','date','week','month','year','dates'].includes(item.type)"
-                  class="wfull"
-                  @change="change(item)"
-                  :disabled="item.disabled"
-                  :placeholder="`请选择${item.label}`"
-                  start-placeholder="开始日期"
-                  range-separator="至"
-                  end-placeholder="结束日期"
-                  :type="item.type"
-                  v-model="value[item.prop]"
-                  value-format="timestamp"
-                />
-                <el-cascader
-                  v-else-if="item.type =='cascader'"
-                  v-model="value[item.prop]"
-                  :disabled="item.disabled"
-                  :options="item.options||[]"
-                  :props="{ expandTrigger: 'hover' }"
-                ></el-cascader>
-                <el-switch
-                  v-else-if="item.type =='switch'"
-                  style="display: block"
-                  v-model="value[item.prop]"
-                  :disabled="item.disabled"
-                  :active-value="1"
-                  :inactive-value="0"
-                  :active-text="item.activeText"
-                  :inactive-text="item.inactiveText"
-                ></el-switch>
-                <el-color-picker v-else-if="item.type =='colorPicker'" v-model="value[item.prop]"></el-color-picker>
-              </slot>
-            </el-form-item>
-          </el-col>
-        </el-row>-->
       </slot>
     </el-form>
     <div
@@ -201,45 +93,29 @@ export default {
       required: true,
       type: String,
     },
-    span: {
-      type: Number,
-      default: 12,
-    },
     // 是否禁用
     disabled: {
       type: Boolean,
       default: false,
+    },
+    span: {
+      type: Number,
+      default: 12,
+    },
+
+    btns: {
+      type: Array,
+      default: () => ["submit", "cancel"],
     },
     // 行间距
     lineSpace: {
       type: String,
       default: "15px",
     },
-    //el-form label-width
-    labelWidth: {
-      type: String,
-    },
-    //el-form label-width
-    labelPosition: {
-      type: String,
-      default: "right",
-    },
-    labelSuffix: {
-      type: String,
-    },
-
-    // 尺寸
-    size: {
-      type: String,
-    },
     // el-row gutter 栅格间隔
     gutter: {
       type: Number,
       default: 10,
-    },
-    btns: {
-      type: Array,
-      default: () => ["submit", "cancel"],
     },
   },
   data() {
@@ -266,11 +142,6 @@ export default {
     // 监控是否手动请求
   },
   methods: {
-    change(item) {
-      if (item.change) {
-        item.change(this.value[item.prop]);
-      }
-    },
     // 关闭表单
     closeForm() {
       // 如果用户自定义取消按钮事件
@@ -333,9 +204,6 @@ export default {
 .e-form-box {
   overflow-y: auto;
   overflow-x: hidden;
-}
-.el-date-editor {
-  // height: 32px;
 }
 .el-range-editor.el-input,
 .el-range-editor.el-input__inner {

@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-10-28 15:46:04
+ * @LastEditTime: 2020-10-29 11:02:29
  * @Description: file content
  */
 <template>
@@ -59,7 +59,7 @@
         <!-- <detail :visible.sync="visible"></detail> -->
       </el-main>
       <d-side-bar
-        mode="hor"
+        mode="ver"
         id="10"
         :visible.sync="visible"
         :show="show"
