@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 00:12:39
+ * @LastEditTime: 2020-11-03 23:08:31
  * @Description: file content
 */
 /**
@@ -47,10 +47,6 @@
         <div
           @mousedown="onButtonDown"
           @touchstart="onButtonDown"
-          @mouseenter="handleMouseEnter"
-          @mouseleave="handleMouseLeave"
-          @focus="handleMouseEnter"
-          @blur="handleMouseLeave"
           class="d-progress-bar"
         >
           <div
@@ -123,8 +119,6 @@ export default {
       isShow: true,
       //开始时间，毫秒为单位
       startTime: 0,
-      hovering: false,
-      dragging: false,
     };
   },
   created() {},
@@ -162,8 +156,8 @@ export default {
       let length = ev.target.buffered.length;
       let end = ev.target.buffered.end(length - 1);
       this.loadRatio = ((end / duration) * 100).toFixed(2);
-      // console.dir(ev.target.buffered.length);
-      // console.dir(ev.target.buffered.end(length - 1));
+      console.dir(ev.target.buffered.length);
+      console.dir(ev.target.buffered.end(length - 1));
     },
     // 可以播放
     canplay(ev) {
@@ -192,74 +186,14 @@ export default {
       }
     },
     onButtonDown(ev) {
-      ev.preventDefault();
-      this.onDragStart(ev);
-      // 鼠标移动
-      window.addEventListener("mousemove", this.onDragging);
-      window.addEventListener("touchmove", this.onDragging);
-      // 鼠标释放
-      window.addEventListener("mouseup", this.onDragEnd);
-      window.addEventListener("touchend", this.onDragEnd);
-      // 点击右键
-      window.addEventListener("contextmenu", this.onDragEnd);
-    },
-    // 拖拽开始
-    onDragStart(ev) {
-      ev.preventDefault();
-      this.dragging = true;
-      this.onDraggFn(ev);
-    },
-    // 拖拽中
-    onDragging(ev) {
-      ev.preventDefault();
-      if (!this.dragging) return;
-      this.onDraggFn(ev);
-    },
-    onDraggFn(ev) {
       if (ev.type === "touchmove") {
         ev.clientY = ev.touches[0].clientY;
         ev.clientX = ev.touches[0].clientX;
       }
-      // diff = ev.offsetX / ev.target.clientWidth;
-      if (ev.offsetX < 0 || ev.offsetX > this.dVideo.clientWidth) return;
-      let diff = ev.offsetX / this.dVideo.clientWidth;
-      // 播放进度条进度
-      this.playRatio = diff * 100;
-      this.currentTime = this.timeFormat(this.dVideo.duration * diff);
+      this.playRatio = ((ev.offsetX / ev.target.clientWidth) * 100).toFixed(4);
+      console.log(((ev.offsetX / ev.target.clientWidth) * 100).toFixed(4));
+      console.dir(ev.target.clientWidth);
     },
-    // 拖拽结束
-    onDragEnd(ev) {
-      if (this.dragging) {
-        /*
-         * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
-         * 不使用 preventDefault 是因为 mouseup 和 click 没有注册在同一个 DOM 上
-         */
-        setTimeout(() => {
-          this.dragging = false;
-          let diff = ev.offsetX / this.dVideo.clientWidth;
-          // 播放进度条进度
-          this.dVideo.currentTime = this.dVideo.duration * diff;
-          // this.hideTooltip();
-        }, 0);
-        window.removeEventListener("mousemove", this.onDragging);
-        window.removeEventListener("touchmove", this.onDragging);
-        window.removeEventListener("mouseup", this.onDragEnd);
-        window.removeEventListener("touchend", this.onDragEnd);
-        window.removeEventListener("contextmenu", this.onDragEnd);
-      }
-    },
-    handleMouseEnter(ev) {
-      this.hovering = true;
-      // this.displayTooltip();
-    },
-
-    handleMouseLeave(ev) {
-      this.hovering = false;
-      // this.hideTooltip();
-    },
-
-    // 播放速度
-    playbackRates() {},
     toggleFullScreen(event) {
       const myvideo = this.$refs.myvideo;
       //如果当前是全屏状态，就退出全屏，否则进入全屏状态

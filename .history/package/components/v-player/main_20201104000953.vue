@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 00:12:39
+ * @LastEditTime: 2020-11-04 00:09:40
  * @Description: file content
 */
 /**
@@ -236,9 +236,7 @@ export default {
          */
         setTimeout(() => {
           this.dragging = false;
-          let diff = ev.offsetX / this.dVideo.clientWidth;
-          // 播放进度条进度
-          this.dVideo.currentTime = this.dVideo.duration * diff;
+          console.log(ev);
           // this.hideTooltip();
         }, 0);
         window.removeEventListener("mousemove", this.onDragging);

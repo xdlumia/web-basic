@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 00:12:39
+ * @LastEditTime: 2020-11-03 23:34:13
  * @Description: file content
 */
 /**
@@ -192,8 +192,8 @@ export default {
       }
     },
     onButtonDown(ev) {
-      ev.preventDefault();
-      this.onDragStart(ev);
+      event.preventDefault();
+      this.onDragStart(event);
       // 鼠标移动
       window.addEventListener("mousemove", this.onDragging);
       window.addEventListener("touchmove", this.onDragging);
@@ -204,31 +204,26 @@ export default {
       window.addEventListener("contextmenu", this.onDragEnd);
     },
     // 拖拽开始
-    onDragStart(ev) {
-      ev.preventDefault();
+    onDragStart(event) {
       this.dragging = true;
-      this.onDraggFn(ev);
     },
     // 拖拽中
     onDragging(ev) {
-      ev.preventDefault();
       if (!this.dragging) return;
-      this.onDraggFn(ev);
-    },
-    onDraggFn(ev) {
       if (ev.type === "touchmove") {
         ev.clientY = ev.touches[0].clientY;
         ev.clientX = ev.touches[0].clientX;
       }
-      // diff = ev.offsetX / ev.target.clientWidth;
-      if (ev.offsetX < 0 || ev.offsetX > this.dVideo.clientWidth) return;
-      let diff = ev.offsetX / this.dVideo.clientWidth;
-      // 播放进度条进度
-      this.playRatio = diff * 100;
-      this.currentTime = this.timeFormat(this.dVideo.duration * diff);
+      let diff = ev.offsetX / ev.target.clientWidth;
+
+      // this.playRatio = (diff * 100).toFixed(4);
+      console.log(diff);
+      // console.log(this.playRatio);
+      // this.dVideo.currentTime = this.dVideo.duration * diff;
+      // this.currentTime = this.timeFormat(this.dVideo.currentTime);
     },
     // 拖拽结束
-    onDragEnd(ev) {
+    onDragEnd(event) {
       if (this.dragging) {
         /*
          * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
@@ -236,9 +231,6 @@ export default {
          */
         setTimeout(() => {
           this.dragging = false;
-          let diff = ev.offsetX / this.dVideo.clientWidth;
-          // 播放进度条进度
-          this.dVideo.currentTime = this.dVideo.duration * diff;
           // this.hideTooltip();
         }, 0);
         window.removeEventListener("mousemove", this.onDragging);

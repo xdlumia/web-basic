@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 00:12:39
+ * @LastEditTime: 2020-11-04 00:07:50
  * @Description: file content
 */
 /**
@@ -193,6 +193,7 @@ export default {
     },
     onButtonDown(ev) {
       ev.preventDefault();
+      console.log(ev);
       this.onDragStart(ev);
       // 鼠标移动
       window.addEventListener("mousemove", this.onDragging);
@@ -228,7 +229,7 @@ export default {
       this.currentTime = this.timeFormat(this.dVideo.duration * diff);
     },
     // 拖拽结束
-    onDragEnd(ev) {
+    onDragEnd(event) {
       if (this.dragging) {
         /*
          * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
@@ -236,9 +237,6 @@ export default {
          */
         setTimeout(() => {
           this.dragging = false;
-          let diff = ev.offsetX / this.dVideo.clientWidth;
-          // 播放进度条进度
-          this.dVideo.currentTime = this.dVideo.duration * diff;
           // this.hideTooltip();
         }, 0);
         window.removeEventListener("mousemove", this.onDragging);
