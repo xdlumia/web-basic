@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-03 19:03:49
+ * @LastEditTime: 2020-11-03 19:33:13
  * @Description: file content
 */
 /**
@@ -28,7 +28,7 @@
   <div class="d-player-wrap">
     <video
       ref="dVideo"
-      controls
+      :controls="false"
       class="d-player-main"
       @loadstart="loadstart"
       @durationchange="durationchange"
@@ -42,14 +42,16 @@
       poster="http://www.html5videoplayer.net/poster/madagascar3.jpg"
       src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
     ></video>
-    <d-icon size="20" icon="icon-pause"></d-icon>
-    <!-- <div class="d-player-control">
+    <div class="d-player-control">
       <div class="d-control-progress">
         <div class="d-progress-bar">
-          <div class="d-progress-load"></div>
           <div
             class="d-progress-play"
             :style="{ width: `${playRatio}%` }"
+          ></div>
+          <div
+            class="d-progress-load"
+            :style="{ width: `${loadRatio}%` }"
           ></div>
         </div>
       </div>
@@ -66,12 +68,13 @@
           <div class="d-tool-time">{{ currentTime }} / {{ totalTime }}</div>
         </div>
         <div class="d-tool-left">
+          <div>倍速</div>
           <div><d-icon size="20" icon="icon-volume-down"></d-icon></div>
           <div><d-icon size="20" icon="icon-settings"></d-icon></div>
           <div><d-icon size="20" icon="icon-screen"></d-icon></div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -99,6 +102,7 @@ export default {
       currentTime: "00:00:00",
       // 当前进度比例
       playRatio: 0,
+      loadRatio: 0,
       //总时长
       totalTime: "00:00:00",
       //标记控制面板是否可见
@@ -138,6 +142,12 @@ export default {
     // 缓冲下载中
     progress(ev) {
       console.log("开始缓冲");
+      let duration = ev.target.duration; // 媒体总长
+      let length = ev.target.buffered.length;
+      let end = ev.target.buffered.end(length - 1);
+      this.loadRatio = ((end / duration) * 100).toFixed(2);
+      console.dir(ev.target.buffered.length);
+      console.dir(ev.target.buffered.end(length - 1));
     },
     // 可以播放
     canplay(ev) {
@@ -145,9 +155,7 @@ export default {
     },
     // 当前播放进度
     timeupdate(ev) {
-      console.dir(ev.target.buffered.length);
-      console.dir(ev.target.buffered.end(0));
-      let duration = ev.target.duration; // 歌曲总长
+      let duration = ev.target.duration; // 媒体总长
       let currentTime = ev.target.currentTime; // 当前歌曲播放长度
       this.playRatio = ((currentTime / duration) * 100).toFixed(2);
       this.currentTime = this.timeFormat(currentTime);
@@ -204,11 +212,21 @@ export default {
       height: 3px;
       width: 100%;
       transition: height 0.2s;
-      background-color: rgba(255, 255, 255, 0.3);
-
-      .d-progress-play {
+      background-color: rgba(255, 255, 255, 0.2);
+      .d-progress-play,
+      .d-progress-load {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
         height: 100%;
+      }
+      .d-progress-play {
+        z-index: 1;
         background-color: #1e95ff;
+      }
+      .d-progress-load {
+        background-color: rgba(255, 255, 255, 0.2);
       }
     }
     &:hover {
