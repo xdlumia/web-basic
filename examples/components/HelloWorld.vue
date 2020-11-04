@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-10-29 11:02:29
+ * @LastEditTime: 2020-11-03 16:34:03
  * @Description: file content
  */
 <template>
@@ -10,6 +10,7 @@
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
     <el-container>
       <el-main>
+        <d-v-player />
         <d-select-tree
           multiple
           defaultExpandAll

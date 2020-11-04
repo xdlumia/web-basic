@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:34:41
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-10-29 14:01:00
+ * @LastEditTime: 2020-11-03 16:29:29
  * @Description: file content
  */
 module.exports = {
@@ -21,5 +21,6 @@ module.exports = {
       filename: 'index.html',
     },
   },
+
   
 };
