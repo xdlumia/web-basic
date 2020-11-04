@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 19:20:01
+ * @LastEditTime: 2020-11-04 20:01:27
  * @Description: file content
 */
 /**
@@ -82,7 +82,8 @@
           </div>
 
           <div class="d-tool-item d-tool-time">
-            <span>{{ currentTime }}</span> /
+            <span>{{ currentTime }}</span>
+            <span style="margin: 0 3px"> / </span>
             <span class="total-time">{{ totalTime }}</span>
           </div>
         </div>
@@ -171,6 +172,7 @@ export default {
         muted: false,
         webFullScreen: false,
         speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+        autoPlay: true,
       }),
     },
   },
@@ -178,7 +180,7 @@ export default {
     return {
       dVideo: null,
       //标记当前的播放状态
-      isPaused: true,
+      isPaused: !this.options.autoPlay,
       //标记当前是否静音
       isMuted: this.options.muted,
       isWebFullScreen: this.options.webFullScreen,
@@ -212,24 +214,26 @@ export default {
       hexToRgba(this.options.color)
     );
     // 循环添加工具栏鼠标滑过效果
-    document.querySelectorAll(".d-tool-item").forEach((item) => {
-      item.addEventListener("mouseenter", this.toolItemMouseenter);
-      item.addEventListener("mouseleave", this.toolItemMouseleave);
-    });
+    // document.querySelectorAll(".d-tool-item").forEach((item) => {
+    //   item.addEventListener("mouseenter", this.toolItemMouseenter);
+    //   item.addEventListener("mouseleave", this.toolItemMouseleave);
+    // });
     // this.$refs.controlWrap.addEventListener("mouseenter", this.mouseenter);
   },
   methods: {
     // 控制栏鼠标hover
-    toolItemMouseenter(ev) {
-      if (ev.target.querySelector(".d-tool-item-main")) {
-        ev.target.querySelector(".d-tool-item-main").style.display = "flex";
-      }
-    },
-    toolItemMouseleave(ev) {
-      if (ev.target.querySelector(".d-tool-item-main")) {
-        ev.target.querySelector(".d-tool-item-main").style.display = "none";
-      }
-    },
+    // toolItemMouseenter(ev) {
+    //   ev.preventDefault();
+    //   if (ev.target.querySelector(".d-tool-item-main")) {
+    //     ev.target.querySelector(".d-tool-item-main").style.display = "flex";
+    //   }
+    // },
+    // toolItemMouseleave(ev) {
+    //   ev.preventDefault();
+    //   if (ev.target.querySelector(".d-tool-item-main")) {
+    //     ev.target.querySelector(".d-tool-item-main").style.display = "none";
+    //   }
+    // },
     togglePlay() {
       //视频标签（video）原生方法：
       //play():让视频播放
@@ -272,13 +276,21 @@ export default {
       } else {
         this.dVideo.volume = this.volumeSize / 100;
       }
+      // 记录快进之前是否是暂停  如果不是暂停. 那么缓存完自动播放
+
+      if (this.options.autoPlay) {
+        this.isPaused = false;
+        this.dVideo.play();
+      }
     },
     // 当前播放进度
     timeupdate(ev) {
       let duration = ev.target.duration; // 媒体总长
       let currentTime = ev.target.currentTime; // 当前歌曲播放长度
-      this.playRatio = ((currentTime / duration) * 100).toFixed(2);
-      this.currentTime = this.timeFormat(currentTime);
+      setTimeout(() => {
+        this.playRatio = ((currentTime / duration) * 100).toFixed(2);
+        this.currentTime = this.timeFormat(currentTime);
+      }, 0);
     },
     mutedHandler() {
       this.isMuted = !this.isMuted;
@@ -356,12 +368,17 @@ export default {
     // 进度条鼠标按下触发
     onProgressStart(ev, type) {
       ev.preventDefault();
+      // this.cacheIsPaused = this.isPaused;
+      // // 拖动之前暂停播放
+      // this.isPaused = true;
+      // this.dVideo.pause();
       this.draging = true;
       // 播放进度条进度
       this.playRatio = this.onDraggFn(ev, this.$refs.playerWrap) * 100;
       this.currentTime = this.timeFormat(
         ev.target.duration * this.onDraggFn(ev, this.$refs.playerWrap)
       );
+      this.dVideo.currentTime = this.dVideo.duration * (this.playRatio / 100);
     },
     // 拖拽中
     onDraging(ev) {
@@ -373,6 +390,7 @@ export default {
       this.currentTime = this.timeFormat(
         this.dVideo.duration * this.onDraggFn(ev, this.$refs.playerWrap)
       );
+      this.dVideo.currentTime = this.dVideo.duration * (this.playRatio / 100);
     },
     // 获取鼠标拖拽比例
     onDraggFn(ev, evBox, type) {
@@ -390,9 +408,6 @@ export default {
         let value =
           (evBoxClientHeight - (ev.clientY - this.startY)) / evBoxClientHeight;
         return value < 0 ? 0 : value > 1 ? 1 : value;
-        // 鼠标移出播放器做的兼容
-
-        return offsetTop / evBoxClientHeight;
       }
       // X轴拖动
       else {
@@ -406,6 +421,9 @@ export default {
     },
     // 拖拽结束
     onDragEnd(ev) {
+      // let diff = ev.offsetX / this.dVideo.clientWidth;
+      // // 播放进度条进度
+      // this.dVideo.currentTime = this.dVideo.duration * diff;
       if (this.draging) {
         /*
          * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
@@ -413,9 +431,9 @@ export default {
          */
         setTimeout(() => {
           this.draging = false;
-          let diff = ev.offsetX / this.dVideo.clientWidth;
-          // 播放进度条进度
-          this.dVideo.currentTime = this.dVideo.duration * diff;
+          this.dVideo.play();
+          this.isPaused = false;
+
           // this.hideTooltip();
         }, 0);
         window.removeEventListener("mousemove", this.onDraging);
@@ -598,6 +616,7 @@ export default {
         .d-tool-item-main {
           position: absolute;
           white-space: nowrap;
+          z-index: 2;
           bottom: 100%;
           left: 50%;
           padding: 8px;
@@ -606,6 +625,11 @@ export default {
           background: rgba(0, 0, 0, 0.9);
           border-radius: 5px;
           transform: translateX(-50%);
+        }
+        &:hover {
+          .d-tool-item-main {
+            display: flex;
+          }
         }
       }
     }
