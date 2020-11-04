@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 20:01:27
+ * @LastEditTime: 2020-11-04 22:29:18
  * @Description: file content
 */
 /**
@@ -39,13 +39,18 @@
       @loadeddata="loadeddata"
       @progress="progress"
       @canplay="canplay"
+      @canplaythrough="canplaythrough"
       @timeupdate="timeupdate"
       @ended="ended"
       width="100%"
       height="100%"
       poster="http://www.html5videoplayer.net/poster/madagascar3.jpg"
-      src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-    ></video>
+    >
+      <source
+        src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+        type="video/mp4"
+      />
+    </video>
     <div class="d-player-control">
       <div
         class="d-control-progress"
@@ -172,7 +177,7 @@ export default {
         muted: false,
         webFullScreen: false,
         speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
-        autoPlay: true,
+        autoPlay: false,
       }),
     },
   },
@@ -203,6 +208,8 @@ export default {
       cacheVolumeSize: 0, //记录静音之前的大小
       startY: 0,
       speedActive: "1.0",
+      isLongPress: false,
+      timeout: null,
     };
   },
   created() {},
@@ -213,6 +220,12 @@ export default {
       "--primary-color",
       hexToRgba(this.options.color)
     );
+    window.addEventListener("keydown", (ev) => {
+      this.keypress(ev, "keydown");
+    });
+    window.addEventListener("keyup", (ev) => {
+      this.keypress(ev, "keyup");
+    });
     // 循环添加工具栏鼠标滑过效果
     // document.querySelectorAll(".d-tool-item").forEach((item) => {
     //   item.addEventListener("mouseenter", this.toolItemMouseenter);
@@ -221,6 +234,44 @@ export default {
     // this.$refs.controlWrap.addEventListener("mouseenter", this.mouseenter);
   },
   methods: {
+    keypress(ev, pressType) {
+      let keyCode = ev.keyCode;
+
+      // arrowLeft
+      if (keyCode == 37) {
+        if (pressType == "keydown") {
+          // 进度加10s
+          // if (this.dVideo.currentTime - 10 < 10) {
+          //   this.dVideo.currentTime = 0;
+          // }
+          // this.timeupdate(this.dVideo);
+        }
+      }
+      // arrowTop
+      else if (keyCode == 38) {
+      }
+      // arrowRight
+      else if (keyCode == 39) {
+        if (pressType == "keydown") {
+          // 进度加10s
+          this.dVideo.currentTime = this.dVideo.currentTime + 10;
+          this.timeupdate(this.dVideo);
+          if (this.isLongPress) {
+            this.dVideo.playbackRate = 5;
+          }
+        } else if (pressType == "keyup") {
+          this.dVideo.playbackRate = this.speedActive;
+        }
+      }
+      // arrowBottom
+      else if (keyCode == 40) {
+      }
+      this.isLongPress = true;
+    },
+    keyup(ev) {
+      this.isLongPress = false;
+      clearTimeout(this.timeout);
+    },
     // 控制栏鼠标hover
     // toolItemMouseenter(ev) {
     //   ev.preventDefault();
@@ -283,14 +334,16 @@ export default {
         this.dVideo.play();
       }
     },
+    canplaythrough(ev) {
+      console.log("可持续播放");
+    },
     // 当前播放进度
     timeupdate(ev) {
-      let duration = ev.target.duration; // 媒体总长
-      let currentTime = ev.target.currentTime; // 当前歌曲播放长度
-      setTimeout(() => {
-        this.playRatio = ((currentTime / duration) * 100).toFixed(2);
-        this.currentTime = this.timeFormat(currentTime);
-      }, 0);
+      let duration = ev.duration || ev.target.duration; // 媒体总长
+      let currentTime = ev.currentTime || ev.target.currentTime; // 当前歌曲播放长度
+
+      this.playRatio = ((currentTime / duration) * 100).toFixed(2);
+      this.currentTime = this.timeFormat(currentTime);
     },
     mutedHandler() {
       this.isMuted = !this.isMuted;
@@ -471,7 +524,6 @@ export default {
         });
       }
     },
-    webFullScreen() {},
     // 全屏
     toggleFullScreen(event) {
       let playerWrap = this.$refs.playerWrap;
