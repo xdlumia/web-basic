@@ -2,14 +2,14 @@
  * @Author: web.王晓冬
  * @Date: 2020-03-19 10:29:17
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 09:13:05
+ * @LastEditTime: 2020-11-04 10:27:23
  * @Description: file content
  */
 <template>
   <div>
     <!-- <el-button @click="visible=true">我這裏測ui</el-button> -->
-    <el-container>
-      <el-main>
+    <el-container class="ml20">
+      <el-main class="ml20">
         <d-v-player />
         <d-select-tree
           multiple

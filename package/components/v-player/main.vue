@@ -2,7 +2,7 @@
  * @Author: web.王晓冬
  * @Date: 2020-11-03 16:29:47
  * @LastEditors: web.王晓冬
- * @LastEditTime: 2020-11-04 00:12:39
+ * @LastEditTime: 2020-11-04 19:20:01
  * @Description: file content
 */
 /**
@@ -25,7 +25,11 @@
 **/
 
 <template>
-  <div class="d-player-wrap">
+  <div
+    class="d-player-wrap"
+    ref="playerWrap"
+    :class="{ 'web-full-screen': isWebFullScreen }"
+  >
     <video
       ref="dVideo"
       :controls="false"
@@ -43,16 +47,16 @@
       src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
     ></video>
     <div class="d-player-control">
-      <div class="d-control-progress">
-        <div
-          @mousedown="onButtonDown"
-          @touchstart="onButtonDown"
-          @mouseenter="handleMouseEnter"
-          @mouseleave="handleMouseLeave"
-          @focus="handleMouseEnter"
-          @blur="handleMouseLeave"
-          class="d-progress-bar"
-        >
+      <div
+        class="d-control-progress"
+        @mousedown="onProgressDown"
+        @touchstart="onProgressDown"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+        @focus="handleMouseEnter"
+        @blur="handleMouseLeave"
+      >
+        <div class="d-progress-bar">
           <div
             class="d-progress-play"
             :style="{ width: `${playRatio}%` }"
@@ -63,46 +67,111 @@
           ></div>
         </div>
       </div>
-      <div class="d-control-tool">
-        <div class="d-tool-left">
-          <div>
+      <div class="d-control-tool" ref="controlWrap">
+        <div class="d-tool-bar">
+          <div class="d-tool-item">
             <d-icon
               @click="togglePlay"
               size="24"
               :icon="`icon-${isPaused ? 'play' : 'pause'}`"
             ></d-icon>
           </div>
-          <div><d-icon size="20" icon="icon-next"></d-icon></div>
-          <div class="d-tool-time">{{ currentTime }} / {{ totalTime }}</div>
+          <!-- 下一部 -->
+          <div class="d-tool-item">
+            <d-icon size="18" icon="icon-next"></d-icon>
+          </div>
+
+          <div class="d-tool-item d-tool-time">
+            <span>{{ currentTime }}</span> /
+            <span class="total-time">{{ totalTime }}</span>
+          </div>
         </div>
-        <div class="d-tool-left">
-          <div>倍速</div>
-          <div>
+        <div class="d-tool-bar">
+          <div class="d-tool-item">
+            {{ speedActive == "1.0" ? "倍速" : speedActive + "X" }}
+            <div class="d-tool-item-main">
+              <ul class="speed-main">
+                <li
+                  :class="{ 'speed-active': speedActive == row }"
+                  @click="playbackRate(row)"
+                  v-for="row of options.speedRate"
+                  :key="row"
+                >
+                  {{ row }}X
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 音量 -->
+          <div class="d-tool-item">
+            <div class="d-tool-item-main volume-box">
+              <div class="volume-main">
+                <span class="volume-text-size">{{ ~~volumeSize }}%</span>
+                <div
+                  ref="volumeWrap"
+                  class="volume-line"
+                  @mousedown="onVolumeDown"
+                  @touchstart="onVolumeDown"
+                >
+                  <p
+                    class="volume-line-range"
+                    :style="{ height: `${volumeSize}%` }"
+                  ></p>
+                </div>
+              </div>
+            </div>
             <d-icon
-              size="20"
-              @click="requestPictureInPicture"
-              icon="icon-volume-down"
+              @click="mutedHandler"
+              size="18"
+              :icon="`icon-volume-${
+                volumeSize == 0 ? 'mute' : volumeSize > 50 ? 'up' : 'down'
+              }`"
             ></d-icon>
           </div>
-          <div><d-icon size="20" icon="icon-settings"></d-icon></div>
-          <div><d-icon size="20" icon="icon-screen"></d-icon></div>
+          <!-- 设置 -->
+          <div class="d-tool-item">
+            <d-icon size="20" icon="icon-settings"></d-icon>
+            <div class="d-tool-item-main">设置</div>
+          </div>
+          <!-- 画中画 -->
+          <div class="d-tool-item" @click="requestPictureInPicture">
+            <d-icon size="20" icon="icon-pip"></d-icon>
+            <div class="d-tool-item-main">画中画</div>
+          </div>
+          <!-- 画中画 -->
+          <div class="d-tool-item" @click="isWebFullScreen = !isWebFullScreen">
+            <d-icon size="20" icon="icon-web-screen"></d-icon>
+            <div class="d-tool-item-main">网页全屏</div>
+          </div>
+          <!-- 全屏 -->
+          <div class="d-tool-item" @click="toggleFullScreen">
+            <div class="d-tool-item-main">全屏</div>
+            <d-icon size="20" icon="icon-screen"></d-icon>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+// hex转rgb
+function hexToRgba(hex) {
+  return `${parseInt("0x" + hex.slice(1, 3))},${parseInt(
+    "0x" + hex.slice(3, 5)
+  )},${parseInt("0x" + hex.slice(5, 7))}`;
+}
 // import dIcon from "./d-icon";
-
 export default {
   name: "d-v-player",
   props: {
-    //参数
-    params: {
-      type: [Object, String, Number],
-      default: function () {
-        return { page: 1, size: 15 };
-      },
+    options: {
+      type: Object,
+      default: () => ({
+        color: "#409eff",
+        muted: false,
+        webFullScreen: false,
+        speedRate: ["0.75", "1.0", "1.25", "1.5", "2.0"], //播放倍速
+      }),
     },
   },
   data() {
@@ -111,11 +180,13 @@ export default {
       //标记当前的播放状态
       isPaused: true,
       //标记当前是否静音
-      isMuted: false,
+      isMuted: this.options.muted,
+      isWebFullScreen: this.options.webFullScreen,
       //当前播放时间
       currentTime: "00:00:00",
-      // 当前进度比例
+      // 当前播放进度比例
       playRatio: 0,
+      // 当前缓冲进度
       loadRatio: 0,
       //总时长
       totalTime: "00:00:00",
@@ -124,14 +195,41 @@ export default {
       //开始时间，毫秒为单位
       startTime: 0,
       hovering: false,
-      dragging: false,
+      // 是否在拖拽中
+      draging: false,
+      volumeSize: 30,
+      cacheVolumeSize: 0, //记录静音之前的大小
+      startY: 0,
+      speedActive: "1.0",
     };
   },
   created() {},
   mounted() {
     this.dVideo = this.$refs.dVideo;
+    // 设置主题色
+    this.$refs.playerWrap.style.setProperty(
+      "--primary-color",
+      hexToRgba(this.options.color)
+    );
+    // 循环添加工具栏鼠标滑过效果
+    document.querySelectorAll(".d-tool-item").forEach((item) => {
+      item.addEventListener("mouseenter", this.toolItemMouseenter);
+      item.addEventListener("mouseleave", this.toolItemMouseleave);
+    });
+    // this.$refs.controlWrap.addEventListener("mouseenter", this.mouseenter);
   },
   methods: {
+    // 控制栏鼠标hover
+    toolItemMouseenter(ev) {
+      if (ev.target.querySelector(".d-tool-item-main")) {
+        ev.target.querySelector(".d-tool-item-main").style.display = "flex";
+      }
+    },
+    toolItemMouseleave(ev) {
+      if (ev.target.querySelector(".d-tool-item-main")) {
+        ev.target.querySelector(".d-tool-item-main").style.display = "none";
+      }
+    },
     togglePlay() {
       //视频标签（video）原生方法：
       //play():让视频播放
@@ -168,6 +266,12 @@ export default {
     // 可以播放
     canplay(ev) {
       console.log("可以播放");
+      // 如果静音
+      if (this.options.muted) {
+        this.dVideo.muted = true;
+      } else {
+        this.dVideo.volume = this.volumeSize / 100;
+      }
     },
     // 当前播放进度
     timeupdate(ev) {
@@ -176,73 +280,146 @@ export default {
       this.playRatio = ((currentTime / duration) * 100).toFixed(2);
       this.currentTime = this.timeFormat(currentTime);
     },
-    // 播放结束
-    ended() {},
-    //开启画中画模式
-    requestPictureInPicture() {
-      if (!document.pictureInPictureElement) {
-        //开启
-        this.dVideo.requestPictureInPicture().catch((error) => {
-          console.log(error, "Video failed to enter Picture-in-Picture mode.");
-        });
+    mutedHandler() {
+      this.isMuted = !this.isMuted;
+      this.dVideo.muted = this.isMuted;
+      if (this.isMuted) {
+        // 缓存静音之前的音量大小
+        this.cacheVolumeSize = this.volumeSize;
+        this.volumeSize = 0;
       } else {
-        document.exitPictureInPicture().catch((error) => {
-          console.log(error, "Video failed to leave Picture-in-Picture mode.");
-        });
+        this.volumeSize = this.cacheVolumeSize;
       }
     },
-    onButtonDown(ev) {
+    // 播放结束
+    ended() {},
+    // 音量按下
+    onVolumeDown(ev) {
       ev.preventDefault();
-      this.onDragStart(ev);
+      this.onVolumeStart(ev, "y");
       // 鼠标移动
-      window.addEventListener("mousemove", this.onDragging);
-      window.addEventListener("touchmove", this.onDragging);
+      window.addEventListener("mousemove", this.onVolumeing);
+      window.addEventListener("touchmove", this.onVolumeing);
+      // 鼠标释放
+      window.addEventListener("mouseup", this.onVolumeEnd);
+      window.addEventListener("touchend", this.onVolumeEnd);
+      // 点击右键
+      window.addEventListener("contextmenu", this.onVolumeEnd);
+    },
+    // 音量鼠标按下触发
+    onVolumeStart(ev, type) {
+      this.draging = true;
+      if (type == "y") {
+        this.startY = ev.clientY - ev.offsetY;
+      }
+      // 音量大小
+      let volume = this.onDraggFn(ev, this.$refs.volumeWrap, "y");
+      this.volumeSize = volume * 100;
+      this.dVideo.volume = volume;
+    },
+    onVolumeing(ev) {
+      if (!this.draging) return;
+      // 音量大小
+      let volume = this.onDraggFn(ev, this.$refs.volumeWrap, "y");
+      this.volumeSize = volume * 100;
+      this.dVideo.volume = volume;
+    },
+    onVolumeEnd(ev) {
+      if (this.draging) {
+        /*
+         * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
+         * 不使用 preventDefault 是因为 mouseup 和 click 没有注册在同一个 DOM 上
+         */
+        setTimeout(() => {
+          this.draging = false;
+        }, 0);
+        window.removeEventListener("mousemove", this.onVolumeing);
+        window.removeEventListener("touchmove", this.onVolumeing);
+        window.removeEventListener("mouseup", this.onVolumeEnd);
+        window.removeEventListener("touchend", this.onVolumeEnd);
+        window.removeEventListener("contextmenu", this.onVolumeEnd);
+      }
+    },
+    // 进度条按下
+    onProgressDown(ev) {
+      ev.preventDefault();
+      this.onProgressStart(ev);
+      // 鼠标移动
+      window.addEventListener("mousemove", this.onDraging);
+      window.addEventListener("touchmove", this.onDraging);
       // 鼠标释放
       window.addEventListener("mouseup", this.onDragEnd);
       window.addEventListener("touchend", this.onDragEnd);
       // 点击右键
       window.addEventListener("contextmenu", this.onDragEnd);
     },
-    // 拖拽开始
-    onDragStart(ev) {
+    // 进度条鼠标按下触发
+    onProgressStart(ev, type) {
       ev.preventDefault();
-      this.dragging = true;
-      this.onDraggFn(ev);
+      this.draging = true;
+      // 播放进度条进度
+      this.playRatio = this.onDraggFn(ev, this.$refs.playerWrap) * 100;
+      this.currentTime = this.timeFormat(
+        ev.target.duration * this.onDraggFn(ev, this.$refs.playerWrap)
+      );
     },
     // 拖拽中
-    onDragging(ev) {
+    onDraging(ev) {
       ev.preventDefault();
-      if (!this.dragging) return;
-      this.onDraggFn(ev);
+      if (!this.draging) return;
+      // 播放进度条进度
+      this.playRatio = this.onDraggFn(ev, this.$refs.playerWrap) * 100;
+
+      this.currentTime = this.timeFormat(
+        this.dVideo.duration * this.onDraggFn(ev, this.$refs.playerWrap)
+      );
     },
-    onDraggFn(ev) {
-      if (ev.type === "touchmove") {
+    // 获取鼠标拖拽比例
+    onDraggFn(ev, evBox, type) {
+      if (ev.type === "touchmove" || ev.type === "touchstart") {
         ev.clientY = ev.touches[0].clientY;
         ev.clientX = ev.touches[0].clientX;
       }
-      // diff = ev.offsetX / ev.target.clientWidth;
-      if (ev.offsetX < 0 || ev.offsetX > this.dVideo.clientWidth) return;
-      let diff = ev.offsetX / this.dVideo.clientWidth;
-      // 播放进度条进度
-      this.playRatio = diff * 100;
-      this.currentTime = this.timeFormat(this.dVideo.duration * diff);
+      // 如果是Y轴拖动
+      if (type == "y") {
+        // console.log(this.startY);
+        let evBoxClientHeight = evBox.clientHeight;
+        // 获取整个播放器宽度
+        // let offsetTop = evBox.offsetTop - ev.offsetX;
+        // console.log(ev.offsetX / evBoxClientHeight);
+        let value =
+          (evBoxClientHeight - (ev.clientY - this.startY)) / evBoxClientHeight;
+        return value < 0 ? 0 : value > 1 ? 1 : value;
+        // 鼠标移出播放器做的兼容
+
+        return offsetTop / evBoxClientHeight;
+      }
+      // X轴拖动
+      else {
+        let evBoxClientWidth = evBox.clientWidth;
+        // 获取整个播放器宽度
+        let offsetX = ev.clientX - this.$refs.playerWrap.offsetLeft;
+        let value = offsetX / evBoxClientWidth;
+        // 鼠标移出播放器做的兼容
+        return value < 0 ? 0 : value > 1 ? 1 : value;
+      }
     },
     // 拖拽结束
     onDragEnd(ev) {
-      if (this.dragging) {
+      if (this.draging) {
         /*
          * 防止在 mouseup 后立即触发 click，导致滑块有几率产生一小段位移
          * 不使用 preventDefault 是因为 mouseup 和 click 没有注册在同一个 DOM 上
          */
         setTimeout(() => {
-          this.dragging = false;
+          this.draging = false;
           let diff = ev.offsetX / this.dVideo.clientWidth;
           // 播放进度条进度
           this.dVideo.currentTime = this.dVideo.duration * diff;
           // this.hideTooltip();
         }, 0);
-        window.removeEventListener("mousemove", this.onDragging);
-        window.removeEventListener("touchmove", this.onDragging);
+        window.removeEventListener("mousemove", this.onDraging);
+        window.removeEventListener("touchmove", this.onDraging);
         window.removeEventListener("mouseup", this.onDragEnd);
         window.removeEventListener("touchend", this.onDragEnd);
         window.removeEventListener("contextmenu", this.onDragEnd);
@@ -259,17 +436,35 @@ export default {
     },
 
     // 播放速度
-    playbackRates() {},
+    playbackRate(row) {
+      this.speedActive = row;
+      this.dVideo.playbackRate = row;
+    },
+    //开启画中画模式
+    requestPictureInPicture() {
+      if (!document.pictureInPictureElement) {
+        //开启
+        this.dVideo.requestPictureInPicture().catch((error) => {
+          console.log(error, "Video failed to enter Picture-in-Picture mode.");
+        });
+      } else {
+        document.exitPictureInPicture().catch((error) => {
+          console.log(error, "Video failed to leave Picture-in-Picture mode.");
+        });
+      }
+    },
+    webFullScreen() {},
+    // 全屏
     toggleFullScreen(event) {
-      const myvideo = this.$refs.myvideo;
+      let playerWrap = this.$refs.playerWrap;
       //如果当前是全屏状态，就退出全屏，否则进入全屏状态
       //获取当前的全屏状态
       let isFullscreen = document.webkitIsFullScreen || document.fullscreen;
       if (!isFullscreen) {
         const inFun =
-          myvideo.requestFullscreen || myvideo.webkitRequestFullScreen;
+          playerWrap.requestFullscreen || myvideo.webkitRequestFullScreen;
         //让当前播放器进入全屏状态
-        inFun.call(myvideo);
+        inFun.call(playerWrap);
       } else {
         const exitFun =
           document.exitFullscreen || document.webkitExitFullScreen;
@@ -298,9 +493,20 @@ export default {
 </script>
 <style lang="less" scoped>
 .d-player-wrap {
+  --primary-color: "";
   position: relative;
   width: 800px;
   height: 450px;
+  transition: 0.2s;
+  overflow: hidden;
+  &.web-full-screen {
+    z-index: 9999999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+  }
   .d-player-main {
     position: absolute;
     z-index: 0;
@@ -314,14 +520,14 @@ export default {
   z-index: 1;
   left: 0;
   bottom: 0;
-  height: 60px;
+  height: 50px;
   width: 100%;
   color: #fff;
 
   .d-control-progress {
     width: 100%;
     position: relative;
-    height: 14px;
+    height: 10px;
     .d-progress-bar {
       position: absolute;
       left: 0;
@@ -329,6 +535,7 @@ export default {
       bottom: 0;
       height: 3px;
       width: 100%;
+      pointer-events: none;
       transition: height 0.2s;
       background-color: rgba(255, 255, 255, 0.2);
       .d-progress-play,
@@ -336,12 +543,23 @@ export default {
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
         height: 100%;
       }
       .d-progress-play {
         z-index: 1;
-        background-color: #1e95ff;
+        background-color: rgba(var(--primary-color), 1);
+        &::before {
+          content: "";
+          position: absolute;
+          right: -6px;
+          top: 50%;
+          width: 12px;
+          height: 12px;
+          transform: translateY(-50%);
+          border-radius: 50%;
+          background: rgba(var(--primary-color), 1);
+          box-shadow: 0 0 0 5px rgba(var(--primary-color), 0.5);
+        }
       }
       .d-progress-load {
         background-color: rgba(255, 255, 255, 0.2);
@@ -349,7 +567,7 @@ export default {
     }
     &:hover {
       .d-progress-bar {
-        height: 14px;
+        height: 100%;
       }
     }
   }
@@ -364,19 +582,101 @@ export default {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 46px;
-    > div {
+    height: 40px;
+    .d-tool-bar {
       display: flex;
-      > div {
-        margin-right: 15px;
+      height: 100%;
+      .d-tool-item {
+        position: relative;
+        height: 100%;
+        cursor: pointer;
+        text-align: center;
+        margin: 0 8px;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        .d-tool-item-main {
+          position: absolute;
+          white-space: nowrap;
+          bottom: 100%;
+          left: 50%;
+          padding: 8px;
+          box-sizing: border-box;
+          display: none;
+          background: rgba(0, 0, 0, 0.9);
+          border-radius: 5px;
+          transform: translateX(-50%);
+        }
       }
     }
+    // 时间
     .d-tool-time {
       font-size: 12px;
       color: #fff;
+      font-weight: 300;
+      .total-time {
+        color: rgba(255, 255, 255, 0.8);
+      }
     }
-    .d-tool-left {
+    // 音量
+    .volume-box {
+      height: 160px;
+      width: 50px;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      .volume-main {
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .volume-text-size {
+          margin-bottom: 5px;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      .volume-line {
+        position: relative;
+        width: 3px;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 2px;
+        cursor: pointer;
+        .volume-line-range {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 20px;
+          width: 100%;
+          background-color: rgba(var(--primary-color), 1);
+          pointer-events: none;
+          &::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -4px;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0px 0px 0px 4px rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+    .speed-main {
+      padding: 0 20px;
+      li {
+        cursor: pointer;
+        line-height: 40px;
+        font-size: 12px;
+        color: #fff;
+        &.speed-active {
+          color: rgba(var(--primary-color), 1);
+        }
+      }
     }
   }
 }
